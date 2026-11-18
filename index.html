@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WarshipX Game Map</title>
-<meta name="description" content="WarshipX is a survival MMO in the Age of Sail: crews run wooden ships built from the woods of a mini real world, raid a sealed isle, smuggle, trade and fight for land.">
+<meta name="description" content="WarshipX is a survival game in the Age of Sail: crews run wooden ships built from the woods of a mini real world, raid a sealed isle, smuggle, trade and fight for land. Single-player and co-op first, then community servers, then one shared MMO world.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -112,6 +112,15 @@ p { margin: 0; }
 .rules div { font-size: 13.5px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
 .rules b { display: block; font-family: var(--font-display); font-size: 15px; margin-bottom: 2px; }
 
+/* three ways to play */
+.ways { display: grid; gap: 14px; }
+.waygrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.way { background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--accent); border-radius: 10px; padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.way .n { font: 600 11px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.way h3 { font-size: 20px; }
+.way p { font-size: 13.5px; color: var(--muted); }
+.way .who { font: 500 12px var(--font-mono); color: var(--ink); }
+
 /* survival strip */
 .needs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
 .need { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; display: grid; gap: 4px; }
@@ -186,9 +195,9 @@ table.builds td.lo { color: var(--accent); font-weight: 600; }
 <body>
 <div class="wrap">
   <header class="head">
-    <div class="eyebrow">WarshipX · a survival MMO in the Age of Sail</div>
+    <div class="eyebrow">WarshipX · a survival game in the Age of Sail</div>
     <h1>Everything in <span>WarshipX</span></h1>
-    <p class="lead">A survival MMO in the Age of Sail (about 1500–1720), on one ocean that circles a mini version of the real world. Every ship is wood, and every region grows its own woods. One sealed island, the Isle, is run as an extraction raid. Crews run their ships by hand, in first person: the helm, the sails, the guns, the carpenter's repairs, the pumps. This page shows everything the game will have, and the road from the first beach to the whole world.</p>
+    <p class="lead">A survival MMO in the Age of Sail (about 1500–1720), on one ocean that circles a mini version of the real world. Every ship is wood, and every region grows its own woods. One sealed island, the Isle, is run as an extraction raid. Crews run their ships by hand, in first person: the helm, the sails, the guns, the carpenter's repairs, the pumps. It comes in three steps: single-player and co-op first, then community servers, then one shared MMO world. This page shows everything the game will have, and the road from the first beach to the whole world.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -211,6 +220,16 @@ table.builds td.lo { color: var(--accent); font-weight: 600; }
         <text x="522" y="241" text-anchor="middle" class="t-small">master plans, prime timber</text>
         <text x="40" y="288" class="t-small">Weekly: your plot grows into a business and your timber seasons; companies take ports. Each 8-week season is one in-game year: the treasure fleet sails, the Isle resets.</text>
       </svg>
+    </div>
+  </section>
+
+  <section class="ways" aria-labelledby="ways-h">
+    <h2 id="ways-h">Three ways to play, one game</h2>
+    <p class="lead" style="font-size:14px">The same game and the same rules in every mode. Alone or with friends, the game plays the Crown, the merchants and the rival crews; in the MMO, players take those parts over.</p>
+    <div class="waygrid">
+      <article class="way"><div class="n">First</div><h3>Single-player and co-op</h3><p>Sail, crew your ship, fell timber, build your plot, fight pirates and the Crown's navy, and raid the Isle, alone or with friends. Hired hands work every station nobody takes.</p><div class="who">You alone, or up to about 8 friends · Cuba and the Isle</div></article>
+      <article class="way"><div class="n">Then</div><h3>Community servers</h3><p>Persistent worlds that players host for their crews and communities, with their own rules: PvP on or off, raid windows, how fast things wear and rot.</p><div class="who">16–64 players · hosted by players</div></article>
+      <article class="way"><div class="n">Then</div><h3>The MMO</h3><p>One shared world: a player-driven economy, a player-run Crown, companies at war over ports and territories, raids against other crews on the Isle, and the whole world joined at sea.</p><div class="who">Hundreds of players per region · official servers</div></article>
     </div>
   </section>
 
@@ -242,7 +261,7 @@ table.builds td.lo { color: var(--accent); font-weight: 600; }
 
   <section class="war" aria-labelledby="smug-h">
     <h2 id="smug-h">Smuggling, piracy and the Crown</h2>
-    <p class="lead" style="font-size:14px">Smugglers run untaxed rum and tobacco and forbidden goods for the biggest profits in the game, and pirates take ships at sea. A player-run Crown and its navy hunt them both and get paid for every seizure. Everyone else lives between the two: stay honest, carry for the smugglers, or sell information.</p>
+    <p class="lead" style="font-size:14px">Smugglers run untaxed rum and tobacco and forbidden goods for the biggest profits in the game, and pirates take ships at sea. The Crown and its navy hunt them both: run by the game alone or with friends, run by players in the MMO, who get paid for every seizure. Everyone else lives between the two: stay honest, carry for the smugglers, or sell information.</p>
     <div class="flows">
       <div class="flow smug"><h3>Run contraband</h3><ol id="flowSmug"></ol></div>
       <div class="flow crown"><h3>Stop it</h3><ol id="flowCrown"></ol></div>
@@ -288,7 +307,7 @@ const FAM = {
   life:   { name: "Survival, timber, crafting & land", c: "var(--life)" },
   ships:  { name: "Ships, sail & combat", c: "var(--ships)" },
   money:  { name: "Economy, companies & the Crown", c: "var(--money)" },
-  online: { name: "Online & progression", c: "var(--online)" },
+  online: { name: "Ways to play & progression", c: "var(--online)" },
 };
 const SYS = [
   { id: "world", fam: "world", name: "World & ocean", what: "A mini Earth on one ocean: real coasts, waves and winds, climates from the tropics to the poles." },
@@ -303,7 +322,7 @@ const SYS = [
   { id: "nav", fam: "ships", name: "Navigation & signals", what: "Compass, lead line, backstaff and charts, with no longitude; flags, lanterns and guns." },
   { id: "eco", fam: "money", name: "Economy & trade", what: "Money in everything: markets, production chains, loans, insurance, the Timber Run, smuggling." },
   { id: "co", fam: "money", name: "Companies, the Crown & PvP", what: "Companies own ports and fight sieges; a player-run Crown hunts smugglers and pirates." },
-  { id: "net", fam: "online", name: "Online & servers", what: "Big shared worlds, ships handed over between servers at sea, built to run on ordinary PCs." },
+  { id: "net", fam: "online", name: "Ways to play & servers", what: "Single-player and co-op first, then community servers, then the MMO: one game, built to run on ordinary PCs." },
   { id: "prog", fam: "online", name: "Progression", what: "Grow by owning things; licences, skills, ranks and titles on top." },
 ];
 const STAGES = [
@@ -311,22 +330,26 @@ const STAGES = [
     chips: ["Real ocean waves", "Surf that breaks on the sand", "Cuba's coasts, jungle and pine woods", "The sun by latitude and season"] },
   { name: "Sea legs", play: "Row a boat and sail a sloop around Havana harbour, tacking into the wind and riding out a squall.",
     chips: ["Wind on real sails", "Walk a moving deck, climb the rigging", "Oars and sweeps"] },
-  { name: "Online at sea", play: "Crew a ship with friends: guns loaded by hand, holes plugged under fire, pumps manned, boarders beaten off.",
-    chips: ["Every station by hand", "Shot holes, flooding and sinking", "Grapples and boarding", "Muskets, pistols and swords"] },
-  { name: "The Isle", play: "The first raid: slip in by boat, loot the fortress and the lagoon, fight the Wardens and other crews, get out alive.",
-    chips: ["40-minute raids", "The Wardens' garrison", "Four ways out"] },
+  { name: "Crews at sea", play: "Crew a ship with friends or hired hands: guns loaded by hand, holes plugged under fire, pumps manned, pirates boarded.",
+    chips: ["Every station by hand", "Co-op crews and hired hands", "Pirate ships to fight", "Shot holes, flooding and sinking", "Grapples and boarding"] },
+  { name: "The Isle", play: "The first raid: slip in by boat, loot the fortress and the lagoon, fight the Wardens and rival crews, get out alive.",
+    chips: ["40-minute raids", "The Wardens' garrison", "Rival crews", "Four ways out"] },
   { name: "Life outside", play: "Fell and season your first timber, build on your plot, make your own boat, earn coin fishing and hauling.",
     chips: ["Felling and seasoning", "Plots and building", "Hand, bench and smithy", "Fishing and cooking"] },
-  { name: "Money and companies", play: "Run timber north and masts south, smuggle past the Crown, start a company and run a port.",
-    chips: ["Markets and contracts", "Production chains", "Smuggling", "Companies and ports", "Plot assaults"] },
-  { name: "Big ships", play: "Build a brigantine from Caribbean hardwood and northern masts, crew her, careen her, dive a wreck with a bell.",
-    chips: ["Shipyards", "Hired hands", "The Crown's navy", "Navigation without longitude", "Wreck and raise"] },
-  { name: "Warships and storms", play: "Take a port in a siege, raid the treasure fleet, ride out a hurricane.",
-    chips: ["Frigates and men-of-war", "Great guns and broadsides", "Territory war", "Hurricanes"] },
-  { name: "The cold", play: "Sail a whaler into the pack ice, survive a polar gale, beat the ice off a freezing ship.",
-    chips: ["Sea ice and icebergs", "Whaling and sealing", "Cold that kills"] },
-  { name: "Early Access", play: "The Caribbean with the Isle, and Norway's fjords and Svalbard, joined across the North Atlantic by the Timber Run.",
-    chips: ["Two regions and an ocean", "Ships handed over between servers at sea", "A guided first hour"] },
+  { name: "Trade, smuggling and the Crown", play: "Trade between ports, run contraband past the Crown's patrols, and defend your plot against raiders.",
+    chips: ["Markets and contracts", "Production chains", "Smuggling", "The Crown's patrols", "Raids on plots"] },
+  { name: "Big ships", play: "Build a brigantine from Caribbean hardwood, crew her, careen her, dive a wreck with a bell.",
+    chips: ["Shipyards", "Hired hands", "Revenue cutters and searches", "Navigation without longitude", "Wreck and raise"] },
+  { name: "Early Access: single-player and co-op", play: "Cuba and the Isle, alone or with up to about 8 friends.",
+    chips: ["Single-player", "Co-op crews", "A guided first hour"] },
+  { name: "Warships and storms", play: "Sail out to the Keys and the Bahamas banks, take a fort, raid the treasure fleet, ride out a hurricane.",
+    chips: ["The Keys and the Bahamas banks", "Frigates and men-of-war", "Great guns and broadsides", "Forts and sieges", "Hurricanes"] },
+  { name: "Community servers", play: "Host a persistent world for your crew and your community, with your own rules.",
+    chips: ["16–64 players", "Companies and ports", "PvP if the host wants it"] },
+  { name: "The cold and the North", play: "Norway's fjords and Svalbard: sail a whaler into the pack ice, and run hardwoods north and masts south.",
+    chips: ["Northern woods", "The Timber Run", "Sea ice and icebergs", "Whaling and sealing", "Cold that kills"] },
+  { name: "The MMO", play: "One shared world: the Caribbean and the North joined across the North Atlantic, with players running the economy and the Crown.",
+    chips: ["Player economy", "Player-run Crown", "Territory war and port sieges", "Raids against other crews", "Ships handed over between servers at sea"] },
   { name: "The world", play: "New regions one at a time, each with its own woods, sea and dangers: the British Isles first, then the Mediterranean, Arabia, Malacca, Japan, both poles and more.",
     chips: ["New regions and woods", "Galleys in the Mediterranean", "Politics at the chokepoints"] },
 ];
@@ -357,12 +380,12 @@ const F = [
   ["craft","Sawmills, powder mills, distilleries, salt pans"],["craft","Gun foundry: swivels, light guns and great guns, in iron and bronze"],
   ["craft","Shipyard hulls frame by frame, rigged and fitted, with real weight and stability"],["craft","Isle plans that are used up and can be traded"],
   ["land","Deeds and plots: cays, coastal lots, town lots, farm and forest plots"],["land","Snap-together kit in timber and stone"],["land","Materials delivered by boat, cart or mule train"],
-  ["land","Everything saved, even while you're offline"],["land","Land tax and auctions for unpaid plots"],["land","Plot assaults: take a plot by force in its owner's war window"],
+  ["land","Everything saved, even while you're offline"],["land","Land tax and auctions for unpaid plots"],["land","Raiders and plot assaults, only in the owner's war window"],
   ["land","Defences: palisades, walls, land office, watchtowers, guns, booms, hired guards"],["land","Offline protection: 3-hour war window, strongroom, safe bank, peace shields"],
   ["land","War bonds paid to the old owner"],["land","Building wind ratings, stone and storm shutters"],["land","Whaling stations and heated huts on the ice edge"],
   ["isle","The Isle: ruined town, old fortress, marble quarry, pine woods, wreck lagoon"],["isle","The Wardens: patrols, marksmen, a mortar battery, armed boats"],
   ["isle","Loot zones, iron keys and a stash"],["isle","Four ways out: your boat, the smugglers' signal, the old pier, swim to a buoy"],["isle","40-minute raid timer and the sweep"],
-  ["isle","Gear-matched raids, groups of 4, no respawns"],["isle","Diving for treasure in the wreck lagoon, with a diving bell"],["isle","Isle seasons: new areas, loot and Warden tactics"],
+  ["isle","Gear-matched raids, groups of 4, no respawns"],["isle","Raid alone or with friends against rival crews; against other players in the MMO"],["isle","Diving for treasure in the wreck lagoon, with a diving bell"],["isle","Isle seasons: new areas, loot and Warden tactics"],
   ["boats","A rowing boat and a sloop on real waves and real wind"],["boats","Shot holes, flooding and sinking"],["boats","Raft, dugout canoe, rowing boat, shallop"],
   ["boats","The sloop: the pirates' favourite"],["boats","Brigantine, fluyt and galleon"],["boats","Shipyards, slipways and careening beaches"],["boats","Hired hands at empty stations"],
   ["boats","Wreck and raise: salvage big ships within 48 hours"],["boats","Fire, the powder magazine and damage control"],["boats","Frigate and man-of-war"],
@@ -374,23 +397,23 @@ const F = [
   ["sail","Hired hands, wages, morale and articles"],["sail","Sails and rigging that tear, chafe and rot"],
   ["combat","Muskets, pistols, swords and swivel guns"],["combat","Grapples, boarding nets and fights across the decks"],["combat","Grenadoes and breastplates"],
   ["combat","Crocodiles in the Isle's southern swamp"],["combat","Light guns: round, chain, bar and grape shot"],["combat","Prize capture at the prize court"],
-  ["combat","Pirate crews in lawless waters"],["combat","Great guns, broadsides and raking; forts, mortars and fire ships"],["combat","Port sieges, 20 v 20 and 30 v 30"],
+  ["combat","AI pirate ships in lawless waters"],["combat","Great guns, broadsides and raking; forts, mortars and fire ships"],["combat","Port sieges, 20 v 20 and 30 v 30"],
   ["combat","Polar bears on Svalbard and Greenland shores"],
   ["nav","Compass, lead line, log line and backstaff"],["nav","Dead reckoning: a circle of doubt, with no longitude"],["nav","Charts and rutters you fill in and trade"],
   ["nav","Signals: flags, lanterns, guns; news travels with ships"],["nav","Weather signs and the weather glass"],["nav","Rescue with boats, signal guns and fires"],
-  ["eco","Havana freeport and starter jobs: fishing, hauling, timber"],["eco","Port markets with order books and price history"],
+  ["eco","Havana freeport and starter jobs: fishing, hauling, timber"],["eco","Port markets with order books and price history"],["eco","NPC merchants and market makers keep every port trading; players take over in the MMO"],
   ["eco","Contracts with escrow: hauls, escorts, tows, rescues, timber orders"],["eco","Counting houses, loans and bottomry"],["eco","Insurance priced on risk and on your hull's woods"],
   ["eco","Taxes, fees and the Crown's stamp duty"],["eco","Smuggling: untaxed rum, tobacco and forbidden goods"],["eco","Dirty coin and laundering through player businesses"],
   ["eco","Notoriety, warrants and a price on your head"],["eco","Hidden holds, false colours and forged papers"],["eco","Salvage and wrecks after storms"],
   ["eco","The treasure fleet: escort it or raid it"],["eco","Whaling and sealing: oil, baleen, ivory; ice pilot contracts"],
   ["eco","World trade routes: the Timber Run, the Rum Run, the Mast Run, the Spice Run, the Silver Run, round the Cape and the Horn"],
   ["co","Companies (up to 50) and alliances (up to 3), with articles"],["co","Player ports: taxes, docking rules, contraband lists, havens"],["co","PvP zones, outlaws and bounties"],
-  ["co","War bonds and 7-day peace shields"],["co","The Crown's own squadron, always on patrol"],["co","The Crown: a player-run navy and customs in every region"],
+  ["co","War bonds and 7-day peace shields"],["co","The Crown's own squadron, always on patrol"],["co","The Crown: run by the game alone or with friends, by players in the MMO"],
   ["co","Stop and rummage, seizures, impounds, arrests and jail"],["co","Revenue cutters and the watchtower network"],["co","Crown elections each season; the smuggling war story"],
   ["co","Territories with control points: tax, timber rights, permits"],["co","Territory war: declare, build a beachhead, fight 20 v 20 or 30 v 30"],["co","Weekly port siege windows"],
   ["co","Politics at the chokepoints: Gibraltar, Hormuz, Malacca, the isthmus"],
-  ["net","Dedicated servers"],["net","Big shared region servers"],["net","Ships handed over between servers at sea"],["net","Anti-cheat and protected hosting"],
-  ["net","Optional fresh-start worlds"],["net","In-game voice: ship, company and proximity, with mute and report"],["net","Built to run on ordinary gaming PCs"],
+  ["net","Single-player on your own PC, with pause"],["net","Co-op with up to about 8 friends"],["net","Community servers for 16–64 players, hosted by players"],
+  ["net","The MMO: official shared worlds, region by region"],["net","Ships handed over between servers at sea"],["net","Anti-cheat and protected hosting"],["net","Optional fresh-start worlds"],["net","In-game voice: ship, company and proximity, with mute and report"],["net","Built to run on ordinary gaming PCs"],
   ["prog","Isle rank each season"],["prog","Skills by doing (small bonuses, at most 15 %)"],["prog","Company tiers and port reputation"],
   ["prog","Licences: Skipper, Master, Captain, Commodore"],["prog","Crown ranks: officer to Governor"],["prog","Ice endorsement for polar waters"],
   ["prog","Your first hours: a guided start on a Havana quay"],["prog","Explorer log: titles, flags, figureheads, sail colours"],
@@ -482,8 +505,8 @@ const FLOW_SMUG = [
   ["Launder", "Contraband pays dirty coin. Clean it through taverns, inns and trading houses, and lose a fifth of it doing so."],
 ];
 const FLOW_CROWN = [
-  ["Take a commission", "Players run each region's Crown (fictional names, like the Azure Crown): officers to Governor, top posts elected every season. Officers leave their company for the term."],
-  ["Patrol", "Revenue cutters and sloops-of-war, booms at the chokepoints, watchtowers and informers. A world-run squadron always patrols too."],
+  ["Take a commission", "In the MMO, players run each region's Crown (fictional names, like the Azure Crown): officers to Governor, top posts elected every season. Alone or with friends, the game runs it."],
+  ["Patrol", "Revenue cutters and sloops-of-war, booms at the chokepoints, watchtowers and informers. The Crown's own squadron always patrols too."],
   ["Stop and rummage", "Order a ship to heave to in Crown waters and search her, without becoming an outlaw. A clean search pays the trader."],
   ["Raid", "With a warrant built from notoriety and evidence, raid boiling houses and stores inside their war windows."],
   ["Get paid", "Duty pay plus 40 % of every fine. Seized contraband is destroyed, never sold."],
