@@ -1,0 +1,551 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>WarshipX — the road map</title><meta name="description" content="WarshipX: a survival MMO on a mini version of the real world. Real ocean, real ships, fight for land, craft weapons and boats, and raid the Isle."><meta property="og:title" content="WarshipX — the road map"><meta property="og:description" content="A survival MMO on one ocean around a mini real world. Everything the game will have, and the order we are building it in.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a chart-plotter night screen. Header + the two loops, then the roadmap in two views (by stage / by system),
+   then the crafting ladder. Stage = when it ships; colour family = which part of the game it belongs to. */
+:root {
+  --bg: #eef3f6;          /* chart paper, cool */
+  --panel: #ffffff;
+  --ink: #0c1c2a;         /* chart ink */
+  --muted: #536676;
+  --rule: #d2dde5;
+  --accent: #e8590c;      /* life-jacket orange */
+  --accent-soft: #fde6d8;
+  --done: #23855a;  --done-soft: #d8efe3;
+  --now: #c77700;   --now-soft: #fbecd0;
+  --world: #1f77b4; --life: #2b8a3e; --ships: #c2410c; --money: #a16207; --online: #6d5bd0;
+  --font-display: "Saira Semi Condensed", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #07131d; --panel: #0d1f2c; --ink: #e3edf3; --muted: #8fa5b5; --rule: #1e3444;
+    --accent: #ff7a33; --accent-soft: #3a2014;
+    --done: #4cc38a; --done-soft: #12301f; --now: #f2a33a; --now-soft: #33240b;
+    --world: #5aa9e6; --life: #5cc46e; --ships: #ff8a4c; --money: #e0b13d; --online: #a597ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #07131d; --panel: #0d1f2c; --ink: #e3edf3; --muted: #8fa5b5; --rule: #1e3444;
+  --accent: #ff7a33; --accent-soft: #3a2014;
+  --done: #4cc38a; --done-soft: #12301f; --now: #f2a33a; --now-soft: #33240b;
+  --world: #5aa9e6; --life: #5cc46e; --ships: #ff8a4c; --money: #e0b13d; --online: #a597ff;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body); }
+[hidden] { display: none !important; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 40px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: .01em; }
+h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1; font-weight: 700; }
+h1 span { color: var(--accent); }
+h2 { font-size: 28px; font-weight: 700; }
+h3 { font-size: 19px; font-weight: 600; }
+p { margin: 0; }
+.eyebrow { font: 500 12px/1.4 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.lead { max-width: 68ch; color: var(--muted); font-size: 16px; }
+.head { display: grid; gap: 12px; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 24px; font: 500 13px var(--font-mono); color: var(--muted); }
+.stats b { color: var(--ink); font-weight: 500; }
+
+/* loops */
+.loops { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.loopbox { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; overflow-x: auto; }
+.loopbox svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.loopbox text { font-family: var(--font-body); fill: var(--ink); }
+.loopbox .t-big { font: 700 15px var(--font-display); letter-spacing: .02em; }
+.loopbox .t-small { font-size: 11.5px; fill: var(--muted); }
+.loopbox .t-mono { font: 500 10.5px var(--font-mono); fill: var(--muted); letter-spacing: .08em; }
+
+/* controls */
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 20px; }
+.tabs { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--panel); }
+.tabs button { font: 600 13px var(--font-body); color: var(--muted); background: transparent; border: 0; padding: 8px 14px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.tabs button:focus-visible, .fam:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; }
+.fam { display: inline-flex; align-items: center; gap: 7px; font: 500 12.5px var(--font-body); color: var(--ink);
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
+.fam i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.fam[aria-pressed="false"] { opacity: .45; }
+.keyrow { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12.5px; color: var(--muted); }
+.keyrow span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* status pills */
+.st { font: 600 10.5px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.st.done { background: var(--done-soft); color: var(--done); }
+.st.now { background: var(--now-soft); color: var(--now); }
+.st.next { background: var(--accent-soft); color: var(--accent); }
+.st.later { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+
+/* by stage: a vertical route line with ports */
+.route { display: grid; gap: 0; position: relative; }
+.stage { display: grid; grid-template-columns: 54px 1fr; gap: 0 14px; }
+.stage .rail { position: relative; display: flex; justify-content: center; }
+.stage .rail::before { content: ""; position: absolute; top: 0; bottom: 0; width: 2px; background: var(--rule); }
+.stage:first-child .rail::before { top: 22px; }
+.stage:last-child .rail::before { bottom: calc(100% - 22px); }
+.node { position: relative; z-index: 1; margin-top: 6px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  font: 700 12px var(--font-display); background: var(--panel); border: 2px solid var(--muted); color: var(--muted); }
+.stage.done .node { background: var(--done); border-color: var(--done); color: var(--bg); }
+.stage.now .node { background: var(--now); border-color: var(--now); color: var(--bg); }
+.stage.next .node { border-color: var(--accent); color: var(--accent); }
+.stage .body { padding: 6px 0 26px; display: grid; gap: 8px; min-width: 0; }
+.stage .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.stage .play { color: var(--muted); font-size: 14px; max-width: 75ch; }
+.pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; line-height: 1.3; background: var(--panel);
+  border: 1px solid var(--rule); border-left: 3px solid var(--c); border-radius: 6px; padding: 5px 9px; }
+.pill.dim { opacity: .18; }
+.pill small { font: 500 10.5px var(--font-mono); color: var(--muted); }
+
+/* by system: cards */
+.systems { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.sys { background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--c); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.sys.dim { opacity: .25; }
+.sys p { color: var(--muted); font-size: 13.5px; }
+.sys ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sys li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: baseline; font-size: 13.5px; border-top: 1px solid var(--rule); padding-top: 6px; }
+.sbadge { font: 600 11px var(--font-mono); padding: 1px 7px; border-radius: 4px; background: var(--bg); color: var(--muted); white-space: nowrap; }
+.sbadge.done { background: var(--done-soft); color: var(--done); }
+.sbadge.now { background: var(--now-soft); color: var(--now); }
+
+/* crafting ladder */
+.craft { display: grid; gap: 14px; }
+.proposal { font-size: 13.5px; color: var(--muted); border-left: 3px solid var(--accent); padding: 4px 0 4px 12px; max-width: 80ch; }
+.ladder { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.rung { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.rung .lvl { font: 600 11px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.rung .needs { font: 500 11.5px var(--font-mono); color: var(--muted); }
+.rung ul { margin: 0; padding-left: 16px; font-size: 13px; display: grid; gap: 3px; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.rules div { font-size: 13.5px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.rules b { display: block; font-family: var(--font-display); font-size: 15px; margin-bottom: 2px; }
+
+/* survival strip */
+.needs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.need { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; display: grid; gap: 4px; }
+.need b { font-family: var(--font-display); font-size: 16px; }
+.need span { font-size: 13px; color: var(--muted); }
+
+/* fight for land */
+.war { display: grid; gap: 14px; }
+.flows { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.flow { background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--money); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.flow:last-child { border-top-color: var(--life); }
+.flow ol { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 8px; }
+.flow li { counter-increment: step; display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 13.5px; }
+.flow li::before { content: counter(step); width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 700 12px var(--font-display); background: var(--bg); color: var(--ink); border: 1px solid var(--rule); }
+.flow li b { font-family: var(--font-display); font-size: 15px; }
+.shields { display: flex; flex-wrap: wrap; gap: 8px; }
+.shield { font-size: 12.5px; background: var(--done-soft); color: var(--ink); border-radius: 999px; padding: 5px 12px; }
+.shield b { color: var(--done); font-weight: 600; }
+
+/* crafting trees */
+.trees { display: grid; gap: 14px; }
+.tree { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.tree h4 { margin: 0; font: 700 18px var(--font-display); }
+.tcols { display: grid; grid-template-columns: 1fr 1fr 1.1fr 2fr; gap: 10px; align-items: stretch; }
+.tcol { display: grid; gap: 6px; align-content: start; min-width: 0; position: relative; }
+.tcol .cap { font: 600 11px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.tcol:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 0; color: var(--accent); font-weight: 700; }
+.chip { font-size: 12.5px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 4px 8px; }
+.tier { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: baseline; font-size: 12.5px; border-top: 1px solid var(--rule); padding-top: 6px; }
+.tier b { font: 600 11px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.tier small { grid-column: 2; color: var(--muted); font-size: 11.5px; }
+.tnote { font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) { .tcols { grid-template-columns: 1fr 1fr; } .tcol:nth-child(2)::after { display: none; } }
+@media (max-width: 460px) { .tcols { grid-template-columns: 1fr; } .tcol::after { display: none; } }
+
+.foot { font: 400 12px var(--font-mono); color: var(--muted); }
+@media (max-width: 900px) { .ladder { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } .stage { grid-template-columns: 40px 1fr; gap: 0 10px; } .node { width: 30px; height: 30px; font-size: 11px; } }
+@media (prefers-reduced-motion: no-preference) { .pill, .sys, .fam { transition: opacity .2s ease; } }
+</style>
+</head><body>
+
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">WarshipX · in development · Unreal Engine 5</div>
+    <h1>Everything in <span>WarshipX</span></h1>
+    <p class="lead">A survival MMO on one ocean that circles a mini version of the real world, with one sealed island, the Isle, run as an extraction shooter. This is everything the game will have, and the order we are building it in.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="loops" aria-labelledby="loops-h">
+    <h2 id="loops-h">What you do</h2>
+    <div class="loopbox">
+      <svg viewBox="0 0 980 300" role="img" aria-label="Two loops: outside you load, sail, sell and spend; on the Isle you insert, loot, fight and extract. Isle loot drives the outside economy, and money and boats from outside equip Isle raids.">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+          <marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+        </defs>
+        <text x="40" y="26" class="t-mono">OUTSIDE · THE SURVIVAL WORLD</text>
+        <text x="610" y="26" class="t-mono">THE ISLE · EXTRACTION SHOOTER</text>
+        <g id="loopOut"></g>
+        <g id="loopIsle"></g>
+        <path d="M 455 118 C 505 100, 545 100, 590 118" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrA)"/>
+        <text x="522" y="92" text-anchor="middle" class="t-small">gear, boats, money</text>
+        <path d="M 590 190 C 545 208, 505 208, 455 190" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrA)"/>
+        <text x="522" y="226" text-anchor="middle" class="t-small">gold, weapons, prototype</text>
+        <text x="522" y="241" text-anchor="middle" class="t-small">ship parts, land grants</text>
+        <text x="40" y="288" class="t-small">Weekly: your plot grows into a business, companies take ports. Each 8-week season is one in-game year: routes open and close, the Isle resets.</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="survival" aria-labelledby="surv-h" style="display:grid;gap:12px">
+    <h2 id="surv-h">Survival, kept quick</h2>
+    <div class="needs-grid" id="needs"></div>
+  </section>
+
+  <section class="war" aria-labelledby="war-h">
+    <h2 id="war-h">Fight for land</h2>
+    <p class="lead" style="font-size:14px">Land can be taken by force: whole territories by companies, single plots by anyone. The fighting happens in the defender's war window, so nobody loses their land while asleep.</p>
+    <div class="flows">
+      <div class="flow"><h3>Take a territory</h3><ol id="flowTerr"></ol></div>
+      <div class="flow"><h3>Take a plot</h3><ol id="flowPlot"></ol></div>
+    </div>
+    <div class="shields" id="shields"></div>
+  </section>
+
+  <section aria-labelledby="map-h" style="display:grid;gap:16px">
+    <div class="section-head">
+      <div style="display:grid;gap:6px">
+        <h2 id="map-h">The road map, with everything in it</h2>
+        <p class="lead" style="font-size:14px">Tap a colour to show only that part of the game. Switch views to see it by stage or by system.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="View">
+        <button id="tab-stage" role="tab" aria-selected="true" aria-controls="view-stage">By stage</button>
+        <button id="tab-system" role="tab" aria-selected="false" aria-controls="view-system">By system</button>
+      </div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="keyrow">
+      <span><span class="st done">done</span> in the game</span>
+      <span><span class="st now">building now</span></span>
+      <span><span class="st next">up next</span></span>
+      <span><span class="st later">later</span></span>
+    </div>
+    <div id="view-stage" role="tabpanel" aria-labelledby="tab-stage"><div class="route" id="route"></div></div>
+    <div id="view-system" role="tabpanel" aria-labelledby="tab-system" hidden><div class="systems" id="systems"></div></div>
+  </section>
+
+  <section class="craft" aria-labelledby="craft-h">
+    <h2 id="craft-h">Crafting: from a raft to a warship</h2>
+    <p class="proposal">It follows the game's rules: materials are hauled in by boat, crafting takes real time, power and fuel, and the best recipes need parts from the Isle.</p>
+    <div class="ladder" id="ladder"></div>
+    <div class="rules" id="craftRules"></div>
+    <h3 style="font-size:22px;margin-top:12px">The two biggest trees: weapons and boats</h3>
+    <p class="lead" style="font-size:14px">Every gun and every boat is built from parts, so each one is a chain of trades: materials from the market, parts from workshops, blueprints from the world and the Isle.</p>
+    <div class="trees">
+      <div class="tree" id="treeWeapons"></div>
+      <div class="tree" id="treeBoats"></div>
+    </div>
+  </section>
+
+  <p class="foot">WarshipX is in development. Everything here can change as we build and test it. Each stage has to be fun and run at 60 fps on an ordinary gaming PC before the next one starts. © 2026 Black Wires.</p>
+</div>
+
+<script>
+const FAM = {
+  world:  { name: "World & ocean", c: "var(--world)" },
+  life:   { name: "Survival, crafting & land", c: "var(--life)" },
+  ships:  { name: "Ships & combat", c: "var(--ships)" },
+  money:  { name: "Economy & companies", c: "var(--money)" },
+  online: { name: "Online & progression", c: "var(--online)" },
+};
+const SYS = [
+  { id: "world", fam: "world", name: "World & ocean", what: "A mini Earth on one ocean: real coasts, real waves, climates from tropics to poles." },
+  { id: "body", fam: "life", name: "Character & body", what: "Walk, swim and dive on real waves; needs and injuries stay quick to fix." },
+  { id: "craft", fam: "life", name: "Crafting & food", what: "Make what you need, from a raft and bandages to engines and hulls." },
+  { id: "land", fam: "life", name: "Land & building", what: "Buy real plots on real coasts, build with a snap kit, defend them." },
+  { id: "power", fam: "life", name: "Power, fuel & water", what: "Solar, generators, batteries, fuel burn and fresh water all work for real." },
+  { id: "isle", fam: "ships", name: "The Isle", what: "One sealed island: raid, loot, fight the Wardens and other crews, get out alive." },
+  { id: "boats", fam: "ships", name: "Boats & ships", what: "From a raft to a frigate, with real buoyancy, flooding and sinking." },
+  { id: "combat", fam: "ships", name: "Combat", what: "Third-person gunfights and naval guns that lead targets on a rolling deck." },
+  { id: "nav", fam: "ships", name: "Navigation & comms", what: "Charts, GPS, radar, sonar, AIS and radio, all needing power." },
+  { id: "eco", fam: "money", name: "Economy & trade", what: "Money in everything: markets, production chains, loans, insurance, routes." },
+  { id: "co", fam: "money", name: "Companies & PvP", what: "Guilds own ports, set taxes and fight sieges; zones decide the PvP rules." },
+  { id: "net", fam: "online", name: "Online & servers", what: "Big shared worlds handed over at sea, built to run on normal PCs." },
+  { id: "prog", fam: "online", name: "Progression", what: "Grow by owning things; licences, skills, ranks and titles on top." },
+];
+const STAGES = [
+  { code: "0", name: "Foundations", st: "done", play: "Walk Varadero beach, wade and swim on the waves, dive under." },
+  { code: "0.5", name: "Real water and sand", st: "now", play: "Stand on the beach and watch real surf break and run up the sand." },
+  { code: "0b", name: "Rescale and world board", st: "now", play: "Cross the new 8 km Cuba and see where the rest of the world will sit." },
+  { code: "0c", name: "Cuba at REX GRADE", st: "next", play: "Walk from a scanned beach into real Cuban jungle and up the Sierra Maestra." },
+  { code: "1", name: "Sea legs", st: "later", play: "Drive a skiff and a go-fast around Havana in calm water and in a storm." },
+  { code: "2", name: "Online at sea", st: "later", play: "16 players online, boarding and sinking each other's boats." },
+  { code: "3", name: "The Isle: first raid", st: "later", play: "A full 40-minute raid: get in, loot, fight, get out alive." },
+  { code: "4", name: "Life outside", st: "later", play: "Buy a plot, build on it, power it with solar and a generator, earn money fishing and hauling." },
+  { code: "5", name: "Money and companies", st: "later", play: "Trade across markets, take a loan, start a company and run a port." },
+  { code: "6", name: "Big ships", st: "later", play: "Build a coaster or a corvette, crew it with friends, dive on a wreck." },
+  { code: "7", name: "Warships and storms", st: "later", play: "Take a port in a siege, ride out a hurricane." },
+  { code: "7b", name: "The cold", st: "later", play: "Sail into the pack ice, survive a polar gale, break the ice off a freezing ship." },
+  { code: "8", name: "Early Access ready", st: "later", play: "A 100–150 player test on real servers." },
+  { code: "9", name: "Early Access launch", st: "later", play: "WarshipX live: Cuba, the Isle, Norway and Svalbard." },
+  { code: "10", name: "The world", st: "later", play: "One new region every two seasons, from the Mediterranean to Japan and both poles." },
+];
+// [system, stage, feature, done?]
+const F = [
+  ["world","0","Real Cuba from satellite height, sea-floor and land-cover data",1],["world","0","FFT ocean waves, one shared water height for everything",1],
+  ["world","0.5","Surf that steepens, breaks and runs up the sand",1],["world","0.5","Calm / trade wind / storm sea states",1],["world","0.5","Scanned sand, coast rocks with spray and mist",1],["world","0.5","Caribbean midday sky, deep blue water to the horizon",1],
+  ["world","0b","Cuba at 1:150 with smooth beaches and open harbours",0],["world","0b","World board: 17 regions on one ocean, wraps east to west",0],["world","0b","Real sun position by latitude, season and time",0],
+  ["world","0c","Jungle, forest, palms and mangroves from real land cover",0],["world","0c","Karst rocks, sea cliffs and the Viñales mogotes",0],
+  ["world","7","Weather fronts, forecasts and night",0],["world","7","Hurricanes and typhoons",0],
+  ["world","7b","Sea ice, icebergs and growlers",0],["world","7b","Polar night, midnight sun and aurora",0],
+  ["world","9","Seasons: 8 weeks = one in-game year, opposite north and south",0],
+  ["world","10","Regions: British Isles, Mediterranean, US East Coast & Panama, Arabia, Malacca, Japan, Bering, Cape Horn & Antarctica, Greenland, West Africa, the Cape, the Reef",0],
+  ["body","0","Walk, sprint, wade and swim on moving waves",1],["body","0","Footprints, splashes and wakes",1],
+  ["body","2","Board boats, fall overboard, climb back on",0],
+  ["body","4","Needs: food, water, stamina",0],["body","4","Injuries: bleeding, fractures, infection, medicine",0],["body","4","Heat stroke and dehydration in the tropics",0],["body","4","Light seasickness for new sailors",0],
+  ["body","7b","Body heat, hypothermia and frostbite",0],["body","7b","Survival suits: safe in ice water, bad for fighting",0],
+  ["craft","4","Hand crafting: raft, bandages, splints, rain catcher",0],["craft","4","Workbench and workshop crafting on your plot",0],
+  ["craft","4","Gunsmith bench: tier 1–2 guns from parts, ammo reloading",0],["craft","4","Weapon parts and quality grades: standard, fine, master",0],["craft","4","Wooden and aluminium boats: raft, rowboat, skiff, panga",0],
+  ["craft","5","Armory: military weapons, explosives, body armour",0],["craft","5","Fibreglass boatyard: workboats, go-fasts, sport-fishers",0],["craft","5","Crafted engines: outboards, diesels, waterjets, tuning",0],
+  ["craft","6","Ordnance works: heavy machine guns, autocannons, mortars, mines",0],["craft","6","Steel hulls with a modular fit-out and real weight and stability",0],
+  ["craft","7","Naval guns, torpedoes and fire control (Isle prototypes)",0],["craft","4","Fishing: lines, traps, pots, nets",0],["craft","4","Cooking on a stove; hot food matters in the cold",0],["craft","4","The cold chain: fish spoils without ice",0],
+  ["craft","5","Production chains: cane to rum, leaf to cigars, beans to coffee",0],["craft","5","Ice houses, smokehouses, sawmills, distilleries",0],
+  ["craft","6","Shipyard hulls from bulk materials, plus fitted modules",0],["craft","6","Isle blueprints unlock the top recipes",0],
+  ["land","4","Deeds and plots: cays, coastal lots, town lots, farm plots",0],["land","4","Snap-together building kit",0],["land","4","Materials delivered by boat or truck",0],["land","4","Everything saved, even while you're offline",0],
+  ["land","5","Land tax and auctions for unpaid plots",0],["land","5","Plot assaults: take a plot by force in its owner's war window",0],["land","5","Defences: walls, land office, watchtowers, gun posts, sea mines, hired guards",0],["land","5","Offline protection: 3-hour war window, strongroom, safe bank, peace shields",0],["land","5","Land insurance",0],
+  ["land","7","Building wind ratings, hurricane straps, storm shutters",0],["land","7b","Heated buildings and ice-edge outposts",0],["land","10","Oil rigs on sea plots (companies)",0],
+  ["power","1","Fuel burn by speed and sea state",0],
+  ["power","2","Ship power: batteries, alternator, bilge pumps",0],
+  ["power","4","Plot power: solar, generator, battery bank, snap-to-grid wiring",0],["power","4","Shore power in ports",0],["power","4","Fresh water: desalinators, rain tanks, wells",0],
+  ["power","5","Refineries and the fuel chain",0],["power","5","Fuel tanks that leak, burn and get stolen; spills",0],
+  ["power","7","Wind turbines (brake in storms or break)",0],["power","7b","Cold-weakened batteries and heating loads",0],["power","10","Small hydro in the fjords",0],
+  ["isle","3","The Isle: ruined town, round prison, marble quarry, wreck lagoon",0],["isle","3","Warden AI: patrols, snipers, mortar team, gunboats",0],["isle","3","Loot zones, keycards and a stash",0],["isle","3","4 ways out: your boat, ferry flare, old pier, swim to a buoy",0],["isle","3","40-minute raid timer and the sweep",0],["isle","3","Gear-matched raids, groups of 4, no respawns",0],
+  ["isle","6","Diving for treasure in the wreck lagoon",0],["isle","9","Isle seasons: new areas, loot and Warden tactics",0],
+  ["boats","1","Skiff and go-fast on real waves: planing, slamming",0],["boats","1","Get in and out, walk on a moving deck",0],
+  ["boats","2","Damage, flooding and sinking",0],
+  ["boats","4","Raft, dinghy, jet ski, workboat",0],
+  ["boats","6","Coaster, tug and barge, patrol boat, corvette",0],["boats","6","Shipyards, modules and dry docks",0],["boats","6","Hired crew at empty stations",0],["boats","6","Wreck and raise: salvage big ships within 48 h",0],["boats","6","Wear and maintenance: engines, corrosion, hull fouling",0],
+  ["boats","7","Frigate (warship)",0],["boats","7b","Ice-class hulls, ice-class trawler and icebreaker",0],["boats","7b","Ships ice up and can roll over",0],["boats","10","Freighters and tankers for the ocean runs",0],
+  ["combat","2","Small arms on foot and from a rolling deck",0],
+  ["combat","3","Third-person shooting on the Isle, armour, grenades",0],["combat","3","Crocodiles in the Isle's southern swamp",0],
+  ["combat","6","Heavy machine guns, autocannons, deck guns, torpedoes",0],["combat","6","Boarding and prize capture",0],["combat","6","AI pirate gangs in lawless waters",0],
+  ["combat","7","127 mm main guns; port sieges 10 v 10 and 20 v 20",0],["combat","7b","Polar bears on Svalbard and Greenland shores",0],
+  ["nav","6","Compass and paper charts that fill in as you sail",0],["nav","6","GPS, radar, depth sounder and sonar",0],["nav","6","AIS (switch it off to smuggle) and VHF radio",0],["nav","6","Distress calls and rescue contracts",0],
+  ["nav","7","Weather forecasts by radio",0],["nav","7b","Distress beacons and self-inflating life rafts",0],
+  ["eco","4","Havana freeport and starter jobs: fishing, hauling",0],
+  ["eco","5","Port markets with order books and price history",0],["eco","5","Contracts with escrow: hauls, escorts, tows, rescues",0],["eco","5","Banks and loans secured on deeds or ships",0],["eco","5","Insurance priced on risk",0],["eco","5","Taxes, fees and the regional balance sim",0],
+  ["eco","6","Salvage and wrecks after storms",0],["eco","7b","Icebreaker convoys and iceberg towing",0],
+  ["eco","9","World trade routes: Rum Run, Arctic Route",0],["eco","10","Oil Run, Spice Route, Tech Run, Cape and Horn routes",0],
+  ["co","5","Companies (up to 50) and alliances (up to 3)",0],["co","5","Territories with control points: tax, resources, production permits",0],["co","5","Territory war: declare, build a beachhead, fight 20 v 20 or 40 v 40",0],["co","5","War bonds and 7-day peace shields",0],["co","5","Player ports: taxes, docking rules, contraband lists",0],["co","5","PvP zones, outlaws and bounties",0],
+  ["co","7","Weekly port siege windows",0],["co","10","Politics at the chokepoints: Gibraltar, Hormuz, Malacca, the canals",0],
+  ["net","2","Dedicated server, 16 players",0],
+  ["net","8","Region servers for 100–150 players",0],["net","8","Open-ocean server and the hand-over at sea",0],["net","8","Anti-cheat and DDoS-protected hosting",0],
+  ["net","9","Early Access: the Caribbean and the North",0],["net","9","Optional fresh-start shards",0],
+  ["prog","3","Isle rank per season",0],
+  ["prog","5","Skills by doing (small bonuses, at most 15 %)",0],["prog","5","Company tiers and port reputation",0],
+  ["prog","6","Licences: Skipper, Master, Captain, Commodore",0],["prog","7b","Ice endorsement for polar waters",0],
+  ["prog","8","Your first hours: a guided start on a Havana pier",0],["prog","9","Explorer log: titles, flags, figureheads, paint",0],
+];
+const NEEDS = [
+  ["Food and water", "Eat and drink about once an hour of play. The desert drains water faster."],
+  ["Health", "Bleeding, fractures and infection, each fixed with one action and the right item."],
+  ["Stamina", "Sprinting, swimming and hauling cargo by hand."],
+  ["Body heat", "Cold water kills in minutes up north; the tropics bring sun, heat and thirst."],
+  ["No chores", "No sleep meter and no base upkeep while you're away. Systems run on the server."],
+];
+const LADDER = [
+  { lvl: "Tier 1 · Hand", needs: "Anywhere · no power", items: ["Raft from barrels and planks", "Bandages and splints", "Rain catcher, campfire", "Handline and fish trap", "Hull patch"] },
+  { lvl: "Tier 2 · Workbench", needs: "On your plot · delivered lumber, cement, steel", items: ["Building kit parts", "Crab pots, longlines, nets", "Warm gear and suit repairs", "Engine service kits", "Breaching kits for raids"] },
+  { lvl: "Tier 3 · Workshop", needs: "Power on · tools wear", items: ["Metalwork and welding", "Outboard rebuilds", "Battery packs and wiring kits", "Small boat modules: pumps, tanks, mounts", "Electronics from imported parts"] },
+  { lvl: "Tier 4 · Production", needs: "Big plots and companies · power, fuel, workers", items: ["Ice house, smokehouse, cannery", "Sawmill", "Sugar mill and distillery: rum", "Tobacco barn: cigars; coffee roaster", "Refinery: diesel, gasoline, bunker fuel"] },
+  { lvl: "Tier 5 · Shipyard", needs: "Coastal plot or port · dry dock", items: ["Hulls from bulk materials", "Engines, holds, cranes, armour, radar", "Ice belts and ice-class refits", "Top modules need Isle parts", "Warships and icebreakers (companies)"] },
+];
+const RULES = [
+  ["Hauled, not conjured", "Every big build needs its materials delivered by boat or truck, so crafting creates trade and hauling work."],
+  ["Real inputs", "Recipes cost time, power and fuel, so a base with no power can't run its workshop."],
+  ["Blueprints from the Isle", "Prototype parts and blueprints from raids unlock the best ship modules."],
+  ["Everything wears", "Crafted engines, panels, suits and tools wear out and need service, which keeps money moving."],
+];
+
+const FLOW_TERR = [
+  ["Declare", "Pick a territory's control point (a fort, lighthouse, radio mast or customs house) and pay a war bond. The holder gets 48 h notice."],
+  ["Build a beachhead", "Set up a camp inside the territory: ammo, medics, boats."],
+  ["Battle in the war window", "In the holder's 3-hour window, each side fields a fixed roster: 20 v 20, or 40 v 40 for big territories."],
+  ["Hold the control point", "Hold it for 15 minutes in total, by land and sea. Naval guns shell forts; mines and booms guard the water."],
+  ["Take over", "The territory flips: its tax, resources, production permits, defences and respawn are yours, with a 7-day peace shield."],
+];
+const FLOW_PLOT = [
+  ["Declare", "Pay a war bond on the plot. The owner gets 24 h notice."],
+  ["Prepare", "Bring explosives, breaching kits, boats and fighters to a beachhead nearby."],
+  ["Break in", "In the owner's war window, get past walls, guns, mines and hired guards."],
+  ["Destroy the land office", "Blow the hardened deed post and hold the plot for 10 minutes with no defender inside."],
+  ["Own it", "The deed and every building are yours. The old owner keeps their bank and most of the strongroom."],
+];
+const SHIELDS = [
+  ["War window", "fighting only in the defender's 3 hours"], ["Notice", "24–48 h, shown to the defender"], ["Bank", "never raidable"],
+  ["Strongroom", "at most 30 % lootable"], ["Freeports", "never attackable"], ["New players", "14 days of safety"], ["Peace shield", "7 days after a takeover"],
+];
+const TREES = [
+  { id: "treeWeapons", name: "Weapons",
+    materials: ["Steel", "Aluminium", "Brass and copper", "Polymer", "Hardwood", "Powder and explosives", "Optics glass"],
+    parts: ["Barrels", "Receivers", "Bolts and carriers", "Trigger groups", "Stocks and grips", "Magazines and feeds", "Sights and optics", "Suppressors and brakes", "Heavy mounts"],
+    benches: ["Gunsmith bench (your plot)", "Armory (company)", "Ordnance works (company yard)"],
+    tiers: [["1 Makeshift", "Machete, speargun, flare gun, pipe shotgun", "known at start"], ["2 Civilian", "Revolver, pistol, pump shotgun, hunting and scoped rifles", "shops and contracts"], ["3 Military", "SMG, assault rifle, marksman rifle, light machine gun, grenades, body armour", "the Isle"], ["4 Heavy", "Heavy MG, grenade launcher, 20–30 mm autocannon, mortar, sea and limpet mines", "Isle stock, research"], ["5 Naval", "57–76 mm deck guns, 127 mm main guns, torpedoes, fire control", "Isle prototypes"]],
+    note: "Ammo is crafted and reloaded (FMJ, armour-piercing, tracer, incendiary; HE and AP shells). Quality grades standard, fine and master give at most 15 %. Salt wears guns; neglected guns jam. Military weapons are contraband in some ports." },
+  { id: "treeBoats", name: "Boats",
+    materials: ["Wood planks and frames", "Aluminium plate", "Fibreglass and resin", "Steel plate", "Composite (Isle)"],
+    parts: ["Hulls", "Engine blocks, pistons, injectors, turbos", "Gearboxes and propellers", "Fuel tanks", "Batteries and alternators", "Pumps and steering", "Radar, AIS, radio, sonar", "Holds and cranes", "Armour plate, gun mounts, ice belt"],
+    benches: ["Workbench and slipway", "Workshop (aluminium)", "Boatyard with moulds (fibreglass)", "Shipyard and dry dock (steel)"],
+    tiers: [["Wood", "Raft, rowboat, wooden skiff", "cheap, heavy, repairable anywhere"], ["Aluminium", "Skiff, panga, workboat", "light, tough in rocks"], ["Fibreglass", "Go-fast, sport-fisher", "fast, cracks on impact"], ["Steel", "Patrol boat, coaster, tug, corvette, freighter, tanker, icebreaker, frigate", "strong, takes armour and an ice belt"], ["Composite", "Top-end patrol boats and racers", "Isle parts"]],
+    note: "Build a hull, fit it out module by module, sea-trial it and register it. Every module has a weight and a place: a top-heavy or badly balanced boat lists or capsizes in a swell. Engines are tuned for power, fuel burn or wear." },
+];
+
+function renderWar() {
+  const fill = (id, steps) => { const ol = document.getElementById(id); for (const [b, t] of steps) ol.append(el("li", {}, el("div", {}, el("b", { text: b }), el("div", { text: t })))); };
+  fill("flowTerr", FLOW_TERR); fill("flowPlot", FLOW_PLOT);
+  const sh = document.getElementById("shields");
+  for (const [b, t] of SHIELDS) sh.append(el("span", { class: "shield" }, el("b", { text: b + ": " }), t));
+}
+
+function renderTrees() {
+  for (const t of TREES) {
+    const box = document.getElementById(t.id);
+    const col = (cap, items) => { const c = el("div", { class: "tcol" }, el("div", { class: "cap", text: cap })); items.forEach((i) => c.append(el("div", { class: "chip", text: i }))); return c; };
+    const tierCol = el("div", { class: "tcol" }, el("div", { class: "cap", text: t.id === "treeWeapons" ? "Tiers" : "Hulls and ships" }));
+    for (const [a, b, c] of t.tiers) tierCol.append(el("div", { class: "tier" }, el("b", { text: a }), el("span", { text: b }), el("small", { text: c })));
+    box.append(el("h4", { text: t.name }), el("div", { class: "tcols" }, col("Materials", t.materials), col("Parts", t.parts), col(t.id === "treeWeapons" ? "Benches" : "Yards", t.benches), tierCol), el("p", { class: "tnote", text: t.note }));
+  }
+}
+
+const statusOf = (code) => (STAGES.find((s) => s.code === code) || {}).st || "later";
+const LABEL = { done: "done", now: "building now", next: "up next", later: "later" };
+const famOn = Object.fromEntries(Object.keys(FAM).map((k) => [k, true]));
+const sysById = Object.fromEntries(SYS.map((s) => [s.id, s]));
+
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k === "style") e.setAttribute("style", v); else if (k === "text") e.textContent = v; else e.setAttribute(k, v);
+  }
+  for (const c of kids) if (c != null) e.append(c);
+  return e;
+}
+
+function renderStats() {
+  const done = F.filter((f) => f[3]).length;
+  const s = document.getElementById("stats");
+  s.append(el("span", {}, el("b", { text: String(F.length) }), " features"), el("span", {}, el("b", { text: String(SYS.length) }), " systems"),
+    el("span", {}, el("b", { text: String(STAGES.length) }), " stages"), el("span", {}, el("b", { text: String(done) }), " in the game today"));
+}
+
+function renderLoops() {
+  const ring = (gid, cx, cy, steps, color) => {
+    const g = document.getElementById(gid);
+    const ns = "http://www.w3.org/2000/svg";
+    const r = 82;
+    const circle = document.createElementNS(ns, "circle");
+    circle.setAttribute("cx", cx); circle.setAttribute("cy", cy); circle.setAttribute("r", r);
+    circle.setAttribute("fill", "none"); circle.setAttribute("stroke", "var(--rule)"); circle.setAttribute("stroke-width", "2"); circle.setAttribute("stroke-dasharray", "4 5");
+    g.append(circle);
+    steps.forEach((st, i) => {
+      const a = -Math.PI / 2 + i * (Math.PI * 2 / steps.length);
+      const x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r;
+      const box = document.createElementNS(ns, "rect");
+      box.setAttribute("x", x - 52); box.setAttribute("y", y - 25); box.setAttribute("width", 104); box.setAttribute("height", 50); box.setAttribute("rx", 8);
+      box.setAttribute("fill", "var(--panel)"); box.setAttribute("stroke", color); box.setAttribute("stroke-width", "2");
+      const t = document.createElementNS(ns, "text");
+      t.setAttribute("x", x); t.setAttribute("y", y - 3); t.setAttribute("text-anchor", "middle"); t.setAttribute("class", "t-big"); t.textContent = st[0];
+      const t2 = document.createElementNS(ns, "text");
+      t2.setAttribute("x", x); t2.setAttribute("y", y + 13); t2.setAttribute("text-anchor", "middle"); t2.setAttribute("class", "t-small"); t2.textContent = st[1];
+      g.append(box, t, t2);
+    });
+  };
+  ring("loopOut", 300, 155, [["Load", "fish, crates, ore"], ["Sail", "fuel vs speed"], ["Sell", "markets, contracts"], ["Spend", "land, boats, power"]], "var(--life)");
+  ring("loopIsle", 745, 155, [["Insert", "boat, ferry, swim"], ["Loot", "prison, lagoon"], ["Fight", "Wardens, crews"], ["Extract", "or lose it all"]], "var(--ships)");
+}
+
+function renderNeeds() {
+  const n = document.getElementById("needs");
+  for (const [b, s] of NEEDS) n.append(el("div", { class: "need" }, el("b", { text: b }), el("span", { text: s })));
+}
+
+function renderLegend() {
+  const lg = document.getElementById("legend");
+  for (const [k, f] of Object.entries(FAM)) {
+    const b = el("button", { class: "fam", "aria-pressed": "true", style: `--c:${f.c}`, type: "button" }, el("i"), f.name);
+    b.addEventListener("click", () => {
+      const allOn = Object.values(famOn).every(Boolean);
+      if (allOn) { for (const key in famOn) famOn[key] = key === k; }        // first tap: solo this family
+      else if (famOn[k] && Object.values(famOn).filter(Boolean).length === 1) { for (const key in famOn) famOn[key] = true; } // tap the solo one again: all
+      else famOn[k] = !famOn[k];
+      lg.querySelectorAll(".fam").forEach((btn, i) => btn.setAttribute("aria-pressed", String(famOn[Object.keys(FAM)[i]])));
+      applyFilter();
+    });
+    lg.append(b);
+  }
+}
+
+function renderRoute() {
+  const route = document.getElementById("route");
+  for (const s of STAGES) {
+    const feats = F.filter((f) => f[1] === s.code);
+    const pills = el("div", { class: "pills" });
+    for (const f of feats) {
+      const sys = sysById[f[0]];
+      pills.append(el("span", { class: "pill", "data-fam": sys.fam, style: `--c:${FAM[sys.fam].c}`, title: sys.name }, f[2], el("small", { text: sys.name })));
+    }
+    route.append(el("div", { class: `stage ${s.st}` },
+      el("div", { class: "rail" }, el("div", { class: "node", text: s.code })),
+      el("div", { class: "body" },
+        el("div", { class: "top" }, el("h3", { text: s.name }), el("span", { class: `st ${s.st}`, text: LABEL[s.st] })),
+        el("p", { class: "play", text: "Play: " + s.play }),
+        pills)));
+  }
+}
+
+function renderSystems() {
+  const wrap = document.getElementById("systems");
+  for (const s of SYS) {
+    const ul = el("ul");
+    for (const f of F.filter((x) => x[0] === s.id)) {
+      const st = statusOf(f[1]);
+      ul.append(el("li", {}, el("span", { text: f[2] }), el("span", { class: `sbadge ${f[3] ? "done" : st === "now" ? "now" : ""}`, text: "Stage " + f[1] })));
+    }
+    wrap.append(el("article", { class: "sys", "data-fam": s.fam, style: `--c:${FAM[s.fam].c}` }, el("h3", { text: s.name }), el("p", { text: s.what }), ul));
+  }
+}
+
+function renderCraft() {
+  const l = document.getElementById("ladder");
+  for (const r of LADDER) {
+    const ul = el("ul");
+    r.items.forEach((i) => ul.append(el("li", { text: i })));
+    l.append(el("div", { class: "rung" }, el("div", { class: "lvl", text: r.lvl }), el("div", { class: "needs", text: r.needs }), ul));
+  }
+  const rr = document.getElementById("craftRules");
+  for (const [b, t] of RULES) rr.append(el("div", {}, el("b", { text: b }), t));
+}
+
+function applyFilter() {
+  document.querySelectorAll(".pill").forEach((p) => p.classList.toggle("dim", !famOn[p.dataset.fam]));
+  document.querySelectorAll(".sys").forEach((c) => c.classList.toggle("dim", !famOn[c.dataset.fam]));
+}
+
+function setView(v) {
+  const stage = v !== "system";
+  document.getElementById("tab-stage").setAttribute("aria-selected", String(stage));
+  document.getElementById("tab-system").setAttribute("aria-selected", String(!stage));
+  document.getElementById("view-stage").hidden = !stage;
+  document.getElementById("view-system").hidden = stage;
+  try { localStorage.setItem("wx-map-view", stage ? "stage" : "system"); } catch (e) {}
+}
+
+renderStats(); renderLoops(); renderNeeds(); renderWar(); renderLegend(); renderRoute(); renderSystems(); renderCraft(); renderTrees();
+document.getElementById("tab-stage").addEventListener("click", () => setView("stage"));
+document.getElementById("tab-system").addEventListener("click", () => setView("system"));
+try { if (localStorage.getItem("wx-map-view") === "system") setView("system"); } catch (e) {}
+</script>
+</body></html>
