@@ -1,9 +1,16 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>WarshipX — the road map</title><meta name="description" content="WarshipX: a survival MMO on a mini version of the real world. Real ocean, real ships, fight for land, craft weapons and boats, and raid the Isle."><meta property="og:title" content="WarshipX — the road map"><meta property="og:description" content="A survival MMO on one ocean around a mini real world. Everything the game will have, and the order we are building it in.">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WarshipX Game Map</title>
+<meta name="description" content="WarshipX is a survival MMO in the Age of Sail: crews run wooden ships built from the woods of a mini real world, raid a sealed isle, smuggle, trade and fight for land.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a chart-plotter night screen. Header + the two loops, then the roadmap in two views (by stage / by system),
-   then the crafting ladder. Stage = when it ships; colour family = which part of the game it belongs to. */
+/* Layout: a chart-plotter screen. Header and the two loops, the woods of the world, survival, land and smuggling,
+   everything in the game by system (colour = which part of the game), the road map by stage, then crafting. */
 :root {
   --bg: #eef3f6;          /* chart paper, cool */
   --panel: #ffffff;
@@ -12,8 +19,7 @@
   --rule: #d2dde5;
   --accent: #e8590c;      /* life-jacket orange */
   --accent-soft: #fde6d8;
-  --done: #23855a;  --done-soft: #d8efe3;
-  --now: #c77700;   --now-soft: #fbecd0;
+  --good: #23855a;  --good-soft: #d8efe3;
   --world: #1f77b4; --life: #2b8a3e; --ships: #c2410c; --money: #a16207; --online: #6d5bd0;
   --font-display: "Saira Semi Condensed", "Arial Narrow", sans-serif;
   --font-body: "IBM Plex Sans", system-ui, sans-serif;
@@ -23,7 +29,7 @@
   :root:not([data-theme="light"]) {
     --bg: #07131d; --panel: #0d1f2c; --ink: #e3edf3; --muted: #8fa5b5; --rule: #1e3444;
     --accent: #ff7a33; --accent-soft: #3a2014;
-    --done: #4cc38a; --done-soft: #12301f; --now: #f2a33a; --now-soft: #33240b;
+    --good: #4cc38a; --good-soft: #12301f;
     --world: #5aa9e6; --life: #5cc46e; --ships: #ff8a4c; --money: #e0b13d; --online: #a597ff;
     color-scheme: dark;
   }
@@ -31,17 +37,15 @@
 :root[data-theme="dark"] {
   --bg: #07131d; --panel: #0d1f2c; --ink: #e3edf3; --muted: #8fa5b5; --rule: #1e3444;
   --accent: #ff7a33; --accent-soft: #3a2014;
-  --done: #4cc38a; --done-soft: #12301f; --now: #f2a33a; --now-soft: #33240b;
+  --good: #4cc38a; --good-soft: #12301f;
   --world: #5aa9e6; --life: #5cc46e; --ships: #ff8a4c; --money: #e0b13d; --online: #a597ff;
   color-scheme: dark;
 }
-*, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-body); }
-[hidden] { display: none !important; }
 .wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: grid; gap: 40px; }
+  display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr); }
+.wrap > * { min-width: 0; }
 h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: .01em; }
 h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1; font-weight: 700; }
 h1 span { color: var(--accent); }
@@ -65,24 +69,12 @@ p { margin: 0; }
 
 /* controls */
 .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 20px; }
-.tabs { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--panel); }
-.tabs button { font: 600 13px var(--font-body); color: var(--muted); background: transparent; border: 0; padding: 8px 14px; cursor: pointer; }
-.tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); }
-.tabs button:focus-visible, .fam:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fam:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px; }
 .fam { display: inline-flex; align-items: center; gap: 7px; font: 500 12.5px var(--font-body); color: var(--ink);
   background: var(--panel); border: 1px solid var(--rule); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
 .fam i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
 .fam[aria-pressed="false"] { opacity: .45; }
-.keyrow { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12.5px; color: var(--muted); }
-.keyrow span { display: inline-flex; align-items: center; gap: 6px; }
-
-/* status pills */
-.st { font: 600 10.5px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
-.st.done { background: var(--done-soft); color: var(--done); }
-.st.now { background: var(--now-soft); color: var(--now); }
-.st.next { background: var(--accent-soft); color: var(--accent); }
-.st.later { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
 
 /* by stage: a vertical route line with ports */
 .route { display: grid; gap: 0; position: relative; }
@@ -92,18 +84,13 @@ p { margin: 0; }
 .stage:first-child .rail::before { top: 22px; }
 .stage:last-child .rail::before { bottom: calc(100% - 22px); }
 .node { position: relative; z-index: 1; margin-top: 6px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-  font: 700 12px var(--font-display); background: var(--panel); border: 2px solid var(--muted); color: var(--muted); }
-.stage.done .node { background: var(--done); border-color: var(--done); color: var(--bg); }
-.stage.now .node { background: var(--now); border-color: var(--now); color: var(--bg); }
-.stage.next .node { border-color: var(--accent); color: var(--accent); }
+  font: 700 12px var(--font-display); background: var(--panel); border: 2px solid var(--accent); color: var(--accent); }
 .stage .body { padding: 6px 0 26px; display: grid; gap: 8px; min-width: 0; }
 .stage .top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
 .stage .play { color: var(--muted); font-size: 14px; max-width: 75ch; }
 .pills { display: flex; flex-wrap: wrap; gap: 6px; }
 .pill { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; line-height: 1.3; background: var(--panel);
-  border: 1px solid var(--rule); border-left: 3px solid var(--c); border-radius: 6px; padding: 5px 9px; }
-.pill.dim { opacity: .18; }
-.pill small { font: 500 10.5px var(--font-mono); color: var(--muted); }
+  border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: 6px; padding: 5px 9px; }
 
 /* by system: cards */
 .systems { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -111,10 +98,7 @@ p { margin: 0; }
 .sys.dim { opacity: .25; }
 .sys p { color: var(--muted); font-size: 13.5px; }
 .sys ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.sys li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: baseline; font-size: 13.5px; border-top: 1px solid var(--rule); padding-top: 6px; }
-.sbadge { font: 600 11px var(--font-mono); padding: 1px 7px; border-radius: 4px; background: var(--bg); color: var(--muted); white-space: nowrap; }
-.sbadge.done { background: var(--done-soft); color: var(--done); }
-.sbadge.now { background: var(--now-soft); color: var(--now); }
+.sys li { font-size: 13.5px; border-top: 1px solid var(--rule); padding-top: 6px; }
 
 /* crafting ladder */
 .craft { display: grid; gap: 14px; }
@@ -144,8 +128,8 @@ p { margin: 0; }
 .flow li::before { content: counter(step); width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 700 12px var(--font-display); background: var(--bg); color: var(--ink); border: 1px solid var(--rule); }
 .flow li b { font-family: var(--font-display); font-size: 15px; }
 .shields { display: flex; flex-wrap: wrap; gap: 8px; }
-.shield { font-size: 12.5px; background: var(--done-soft); color: var(--ink); border-radius: 999px; padding: 5px 12px; }
-.shield b { color: var(--done); font-weight: 600; }
+.shield { font-size: 12.5px; background: var(--good-soft); color: var(--ink); border-radius: 999px; padding: 5px 12px; }
+.shield b { color: var(--good); font-weight: 600; }
 
 /* crafting trees */
 .trees { display: grid; gap: 14px; }
@@ -166,38 +150,79 @@ p { margin: 0; }
 .foot { font: 400 12px var(--font-mono); color: var(--muted); }
 @media (max-width: 900px) { .ladder { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .ladder { grid-template-columns: 1fr; } .stage { grid-template-columns: 40px 1fr; gap: 0 10px; } .node { width: 30px; height: 30px; font-size: 11px; } }
-@media (prefers-reduced-motion: no-preference) { .pill, .sys, .fam { transition: opacity .2s ease; } }
-</style>
-</head><body>
+@media (prefers-reduced-motion: no-preference) { .sys, .fam { transition: opacity .2s ease; } }
 
+/* the woods of the world: one card per wood with score bars, then six sloops compared */
+.timber { display: grid; gap: 14px; }
+.woods { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.wood { background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--c); border-radius: 10px; padding: 14px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.wood h3 { font-size: 18px; }
+.wood .where { font: 500 11px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.wood .best { font-size: 13px; color: var(--muted); }
+.wood .meta { display: flex; justify-content: space-between; gap: 8px; font: 500 11.5px var(--font-mono); color: var(--muted); }
+.bars { display: grid; gap: 4px; }
+.bar { display: grid; grid-template-columns: 74px 1fr 18px; gap: 8px; align-items: center; font-size: 12px; }
+.bar span { color: var(--muted); }
+.bar i { display: block; height: 7px; border-radius: 4px; background: var(--rule); position: relative; overflow: hidden; }
+.bar i::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: var(--w); background: var(--life); border-radius: 4px; }
+.bar.bad i::after { background: var(--accent); }
+.bar b { font: 500 11px var(--font-mono); text-align: right; }
+.woodkey { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12.5px; color: var(--muted); }
+.woodkey span { display: inline-flex; align-items: center; gap: 6px; }
+.woodkey i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.tablewrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; }
+table.builds { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 13px; }
+table.builds th, table.builds td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
+table.builds th:nth-child(-n+2), table.builds td:nth-child(-n+2) { text-align: left; }
+table.builds td:nth-child(2) { white-space: normal; color: var(--muted); min-width: 190px; }
+table.builds th { font: 600 10.5px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); vertical-align: bottom; }
+table.builds tr:last-child td { border-bottom: 0; }
+table.builds td.hi { color: var(--good); font-weight: 600; }
+table.builds td.lo { color: var(--accent); font-weight: 600; }
+.flow.smug { border-top-color: var(--ships); }
+.flow.crown { border-top-color: var(--world); }
+</style>
+</head>
+<body>
 <div class="wrap">
   <header class="head">
-    <div class="eyebrow">WarshipX · in development · Unreal Engine 5</div>
+    <div class="eyebrow">WarshipX · a survival MMO in the Age of Sail</div>
     <h1>Everything in <span>WarshipX</span></h1>
-    <p class="lead">A survival MMO on one ocean that circles a mini version of the real world, with one sealed island, the Isle, run as an extraction shooter. This is everything the game will have, and the order we are building it in.</p>
+    <p class="lead">A survival MMO in the Age of Sail (about 1500–1720), on one ocean that circles a mini version of the real world. Every ship is wood, and every region grows its own woods. One sealed island, the Isle, is run as an extraction raid. Crews run their ships by hand, in first person: the helm, the sails, the guns, the carpenter's repairs, the pumps. This page shows everything the game will have, and the road from the first beach to the whole world.</p>
     <div class="stats" id="stats"></div>
   </header>
 
   <section class="loops" aria-labelledby="loops-h">
     <h2 id="loops-h">What you do</h2>
     <div class="loopbox">
-      <svg viewBox="0 0 980 300" role="img" aria-label="Two loops: outside you load, sail, sell and spend; on the Isle you insert, loot, fight and extract. Isle loot drives the outside economy, and money and boats from outside equip Isle raids.">
+      <svg viewBox="0 0 980 300" role="img" aria-label="Two loops: outside you load, sail, sell and spend; on the Isle you insert, loot, fight and extract. Isle loot drives the outside economy, and coin and ships from outside equip Isle raids.">
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
           <marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
         </defs>
         <text x="40" y="26" class="t-mono">OUTSIDE · THE SURVIVAL WORLD</text>
-        <text x="610" y="26" class="t-mono">THE ISLE · EXTRACTION SHOOTER</text>
+        <text x="610" y="26" class="t-mono">THE ISLE · EXTRACTION RAID</text>
         <g id="loopOut"></g>
         <g id="loopIsle"></g>
         <path d="M 455 118 C 505 100, 545 100, 590 118" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrA)"/>
-        <text x="522" y="92" text-anchor="middle" class="t-small">gear, boats, money</text>
+        <text x="522" y="92" text-anchor="middle" class="t-small">gear, boats, coin</text>
         <path d="M 590 190 C 545 208, 505 208, 455 190" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrA)"/>
-        <text x="522" y="226" text-anchor="middle" class="t-small">gold, weapons, prototype</text>
-        <text x="522" y="241" text-anchor="middle" class="t-small">ship parts, land grants</text>
-        <text x="40" y="288" class="t-small">Weekly: your plot grows into a business, companies take ports. Each 8-week season is one in-game year: routes open and close, the Isle resets.</text>
+        <text x="522" y="226" text-anchor="middle" class="t-small">treasure, bronze guns,</text>
+        <text x="522" y="241" text-anchor="middle" class="t-small">master plans, prime timber</text>
+        <text x="40" y="288" class="t-small">Weekly: your plot grows into a business and your timber seasons; companies take ports. Each 8-week season is one in-game year: the treasure fleet sails, the Isle resets.</text>
       </svg>
     </div>
+  </section>
+
+  <section class="timber" aria-labelledby="wood-h">
+    <h2 id="wood-h">The woods of the world</h2>
+    <p class="lead" style="font-size:14px">Every region grows its own woods, and no region grows them all. The woods you build with decide a ship's speed, strength, shot resistance, repair cost and lifespan, and every piece of timber has a grade (common, fine, prime) and a seasoning (green, seasoned, well seasoned). These are the woods of the first regions; every new region adds its own.</p>
+    <div class="woodkey" id="woodkey"></div>
+    <div class="woods" id="woods"></div>
+    <h3 style="font-size:22px;margin-top:8px">Six sloops: same plan, different woods</h3>
+    <p class="lead" style="font-size:14px">100 = the northern sloop of oak and pine. Life is in seasons (8 weeks each) until the hull is down to a quarter of its soundness. Best in each column in green, worst in orange. Example values: the final balance may differ.</p>
+    <div class="tablewrap"><table class="builds" id="builds"></table></div>
+    <p class="proposal"><b>The Timber Run.</b> The best hull woods grow in the tropics and the best masts, tar and rope in the north, so a Havana hull with Norwegian masts is faster and safer aloft than the all-Caribbean sloop, and far tougher than the all-northern one. That trade, hardwoods north and masts south, is the backbone of the world's economy.</p>
   </section>
 
   <section class="survival" aria-labelledby="surv-h" style="display:grid;gap:12px">
@@ -215,213 +240,305 @@ p { margin: 0; }
     <div class="shields" id="shields"></div>
   </section>
 
-  <section aria-labelledby="map-h" style="display:grid;gap:16px">
-    <div class="section-head">
-      <div style="display:grid;gap:6px">
-        <h2 id="map-h">The road map, with everything in it</h2>
-        <p class="lead" style="font-size:14px">Tap a colour to show only that part of the game. Switch views to see it by stage or by system.</p>
-      </div>
-      <div class="tabs" role="tablist" aria-label="View">
-        <button id="tab-stage" role="tab" aria-selected="true" aria-controls="view-stage">By stage</button>
-        <button id="tab-system" role="tab" aria-selected="false" aria-controls="view-system">By system</button>
-      </div>
+  <section class="war" aria-labelledby="smug-h">
+    <h2 id="smug-h">Smuggling, piracy and the Crown</h2>
+    <p class="lead" style="font-size:14px">Smugglers run untaxed rum and tobacco and forbidden goods for the biggest profits in the game, and pirates take ships at sea. A player-run Crown and its navy hunt them both and get paid for every seizure. Everyone else lives between the two: stay honest, carry for the smugglers, or sell information.</p>
+    <div class="flows">
+      <div class="flow smug"><h3>Run contraband</h3><ol id="flowSmug"></ol></div>
+      <div class="flow crown"><h3>Stop it</h3><ol id="flowCrown"></ol></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="all-h" style="display:grid;gap:16px">
+    <div style="display:grid;gap:6px">
+      <h2 id="all-h">Everything in the game</h2>
+      <p class="lead" style="font-size:14px">Tap a colour to show only that part of the game; tap it again to show everything.</p>
     </div>
     <div class="legend" id="legend"></div>
-    <div class="keyrow">
-      <span><span class="st done">done</span> in the game</span>
-      <span><span class="st now">building now</span></span>
-      <span><span class="st next">up next</span></span>
-      <span><span class="st later">later</span></span>
+    <div class="systems" id="systems"></div>
+  </section>
+
+  <section aria-labelledby="map-h" style="display:grid;gap:16px">
+    <div style="display:grid;gap:6px">
+      <h2 id="map-h">The road map</h2>
+      <p class="lead" style="font-size:14px">The game is built in stages, one at a time, and each stage has to be fun before the next one starts.</p>
     </div>
-    <div id="view-stage" role="tabpanel" aria-labelledby="tab-stage"><div class="route" id="route"></div></div>
-    <div id="view-system" role="tabpanel" aria-labelledby="tab-system" hidden><div class="systems" id="systems"></div></div>
+    <div class="route" id="route"></div>
   </section>
 
   <section class="craft" aria-labelledby="craft-h">
-    <h2 id="craft-h">Crafting: from a raft to a warship</h2>
-    <p class="proposal">It follows the game's rules: materials are hauled in by boat, crafting takes real time, power and fuel, and the best recipes need parts from the Isle.</p>
+    <h2 id="craft-h">Crafting: from a dugout to a man-of-war</h2>
+    <p class="proposal"><b>Five places to make things,</b> from your own two hands to a shipyard. Materials are hauled in by boat, cart or mule train, crafting takes real time, timber and mill power, and the best recipes need plans from the Isle.</p>
     <div class="ladder" id="ladder"></div>
     <div class="rules" id="craftRules"></div>
-    <h3 style="font-size:22px;margin-top:12px">The two biggest trees: weapons and boats</h3>
-    <p class="lead" style="font-size:14px">Every gun and every boat is built from parts, so each one is a chain of trades: materials from the market, parts from workshops, blueprints from the world and the Isle.</p>
+    <h3 style="font-size:22px;margin-top:12px">The two biggest trees: weapons and ships</h3>
+    <p class="lead" style="font-size:14px">Every gun and every ship is built from parts, so each one is a chain of trades: timber, iron, copper and hemp from the market, parts from workshops, plans from the world and the Isle.</p>
     <div class="trees">
       <div class="tree" id="treeWeapons"></div>
       <div class="tree" id="treeBoats"></div>
     </div>
   </section>
 
-  <p class="foot">WarshipX is in development. Everything here can change as we build and test it. Each stage has to be fun and run at 60 fps on an ordinary gaming PC before the next one starts. © 2026 Black Wires.</p>
+  <p class="foot">WarshipX is in development. Everything on this page is planned and may change as the game is built.</p>
 </div>
 
 <script>
 const FAM = {
   world:  { name: "World & ocean", c: "var(--world)" },
-  life:   { name: "Survival, crafting & land", c: "var(--life)" },
-  ships:  { name: "Ships & combat", c: "var(--ships)" },
-  money:  { name: "Economy & companies", c: "var(--money)" },
+  life:   { name: "Survival, timber, crafting & land", c: "var(--life)" },
+  ships:  { name: "Ships, sail & combat", c: "var(--ships)" },
+  money:  { name: "Economy, companies & the Crown", c: "var(--money)" },
   online: { name: "Online & progression", c: "var(--online)" },
 };
 const SYS = [
-  { id: "world", fam: "world", name: "World & ocean", what: "A mini Earth on one ocean: real coasts, real waves, climates from tropics to poles." },
-  { id: "body", fam: "life", name: "Character & body", what: "Walk, swim and dive on real waves; needs and injuries stay quick to fix." },
-  { id: "craft", fam: "life", name: "Crafting & food", what: "Make what you need, from a raft and bandages to engines and hulls." },
-  { id: "land", fam: "life", name: "Land & building", what: "Buy real plots on real coasts, build with a snap kit, defend them." },
-  { id: "power", fam: "life", name: "Power, fuel & water", what: "Solar, generators, batteries, fuel burn and fresh water all work for real." },
+  { id: "world", fam: "world", name: "World & ocean", what: "A mini Earth on one ocean: real coasts, waves and winds, climates from the tropics to the poles." },
+  { id: "body", fam: "life", name: "Character & body", what: "Walk, swim and climb the rigging on real waves; needs and injuries stay quick to fix." },
+  { id: "timber", fam: "life", name: "Timber", what: "Each region grows its own woods, with real properties and grades. They decide what your ship can do." },
+  { id: "craft", fam: "life", name: "Crafting & food", what: "Make what you need, from a dugout and bandages to rope, sails, guns and hulls." },
+  { id: "land", fam: "life", name: "Land & building", what: "Buy real plots on real coasts, build in timber and stone, defend them." },
   { id: "isle", fam: "ships", name: "The Isle", what: "One sealed island: raid, loot, fight the Wardens and other crews, get out alive." },
-  { id: "boats", fam: "ships", name: "Boats & ships", what: "From a raft to a frigate, with real buoyancy, flooding and sinking." },
-  { id: "combat", fam: "ships", name: "Combat", what: "Third-person gunfights and naval guns that lead targets on a rolling deck." },
-  { id: "nav", fam: "ships", name: "Navigation & comms", what: "Charts, GPS, radar, sonar, AIS and radio, all needing power." },
-  { id: "eco", fam: "money", name: "Economy & trade", what: "Money in everything: markets, production chains, loans, insurance, routes." },
-  { id: "co", fam: "money", name: "Companies & PvP", what: "Guilds own ports, set taxes and fight sieges; zones decide the PvP rules." },
-  { id: "net", fam: "online", name: "Online & servers", what: "Big shared worlds handed over at sea, built to run on normal PCs." },
+  { id: "boats", fam: "ships", name: "Ships", what: "From a dugout to a man-of-war, all wood, with real buoyancy, flooding, fire and sinking." },
+  { id: "sail", fam: "ships", name: "Wind, crews & provisions", what: "The wind fills real sails; crews run every station by hand, eat, drink and draw wages; mills drive the work ashore." },
+  { id: "combat", fam: "ships", name: "Combat", what: "Swords and single-shot firearms on foot; broadsides, chain shot and boarding at sea." },
+  { id: "nav", fam: "ships", name: "Navigation & signals", what: "Compass, lead line, backstaff and charts, with no longitude; flags, lanterns and guns." },
+  { id: "eco", fam: "money", name: "Economy & trade", what: "Money in everything: markets, production chains, loans, insurance, the Timber Run, smuggling." },
+  { id: "co", fam: "money", name: "Companies, the Crown & PvP", what: "Companies own ports and fight sieges; a player-run Crown hunts smugglers and pirates." },
+  { id: "net", fam: "online", name: "Online & servers", what: "Big shared worlds, ships handed over between servers at sea, built to run on ordinary PCs." },
   { id: "prog", fam: "online", name: "Progression", what: "Grow by owning things; licences, skills, ranks and titles on top." },
 ];
 const STAGES = [
-  { code: "0", name: "Foundations", st: "done", play: "Walk Varadero beach, wade and swim on the waves, dive under." },
-  { code: "0.5", name: "Real water and sand", st: "now", play: "Stand on the beach and watch real surf break and run up the sand." },
-  { code: "0b", name: "Rescale and world board", st: "now", play: "Cross the new 8 km Cuba and see where the rest of the world will sit." },
-  { code: "0c", name: "Cuba at REX GRADE", st: "next", play: "Walk from a scanned beach into real Cuban jungle and up the Sierra Maestra." },
-  { code: "1", name: "Sea legs", st: "later", play: "Drive a skiff and a go-fast around Havana in calm water and in a storm." },
-  { code: "2", name: "Online at sea", st: "later", play: "16 players online, boarding and sinking each other's boats." },
-  { code: "3", name: "The Isle: first raid", st: "later", play: "A full 40-minute raid: get in, loot, fight, get out alive." },
-  { code: "4", name: "Life outside", st: "later", play: "Buy a plot, build on it, power it with solar and a generator, earn money fishing and hauling." },
-  { code: "5", name: "Money and companies", st: "later", play: "Trade across markets, take a loan, start a company and run a port." },
-  { code: "6", name: "Big ships", st: "later", play: "Build a coaster or a corvette, crew it with friends, dive on a wreck." },
-  { code: "7", name: "Warships and storms", st: "later", play: "Take a port in a siege, ride out a hurricane." },
-  { code: "7b", name: "The cold", st: "later", play: "Sail into the pack ice, survive a polar gale, break the ice off a freezing ship." },
-  { code: "8", name: "Early Access ready", st: "later", play: "A 100–150 player test on real servers." },
-  { code: "9", name: "Early Access launch", st: "later", play: "WarshipX live: Cuba, the Isle, Norway and Svalbard." },
-  { code: "10", name: "The world", st: "later", play: "One new region every two seasons, from the Mediterranean to Japan and both poles." },
+  { name: "Foundations", play: "Walk a Cuban beach, wade into the surf and swim on real waves.",
+    chips: ["Real ocean waves", "Surf that breaks on the sand", "Cuba's coasts, jungle and pine woods", "The sun by latitude and season"] },
+  { name: "Sea legs", play: "Row a boat and sail a sloop around Havana harbour, tacking into the wind and riding out a squall.",
+    chips: ["Wind on real sails", "Walk a moving deck, climb the rigging", "Oars and sweeps"] },
+  { name: "Online at sea", play: "Crew a ship with friends: guns loaded by hand, holes plugged under fire, pumps manned, boarders beaten off.",
+    chips: ["Every station by hand", "Shot holes, flooding and sinking", "Grapples and boarding", "Muskets, pistols and swords"] },
+  { name: "The Isle", play: "The first raid: slip in by boat, loot the fortress and the lagoon, fight the Wardens and other crews, get out alive.",
+    chips: ["40-minute raids", "The Wardens' garrison", "Four ways out"] },
+  { name: "Life outside", play: "Fell and season your first timber, build on your plot, make your own boat, earn coin fishing and hauling.",
+    chips: ["Felling and seasoning", "Plots and building", "Hand, bench and smithy", "Fishing and cooking"] },
+  { name: "Money and companies", play: "Run timber north and masts south, smuggle past the Crown, start a company and run a port.",
+    chips: ["Markets and contracts", "Production chains", "Smuggling", "Companies and ports", "Plot assaults"] },
+  { name: "Big ships", play: "Build a brigantine from Caribbean hardwood and northern masts, crew her, careen her, dive a wreck with a bell.",
+    chips: ["Shipyards", "Hired hands", "The Crown's navy", "Navigation without longitude", "Wreck and raise"] },
+  { name: "Warships and storms", play: "Take a port in a siege, raid the treasure fleet, ride out a hurricane.",
+    chips: ["Frigates and men-of-war", "Great guns and broadsides", "Territory war", "Hurricanes"] },
+  { name: "The cold", play: "Sail a whaler into the pack ice, survive a polar gale, beat the ice off a freezing ship.",
+    chips: ["Sea ice and icebergs", "Whaling and sealing", "Cold that kills"] },
+  { name: "Early Access", play: "The Caribbean with the Isle, and Norway's fjords and Svalbard, joined across the North Atlantic by the Timber Run.",
+    chips: ["Two regions and an ocean", "Ships handed over between servers at sea", "A guided first hour"] },
+  { name: "The world", play: "New regions one at a time, each with its own woods, sea and dangers: the British Isles first, then the Mediterranean, Arabia, Malacca, Japan, both poles and more.",
+    chips: ["New regions and woods", "Galleys in the Mediterranean", "Politics at the chokepoints"] },
 ];
-// [system, stage, feature, done?]
+// [system, feature]
 const F = [
-  ["world","0","Real Cuba from satellite height, sea-floor and land-cover data",1],["world","0","FFT ocean waves, one shared water height for everything",1],
-  ["world","0.5","Surf that steepens, breaks and runs up the sand",1],["world","0.5","Calm / trade wind / storm sea states",1],["world","0.5","Scanned sand, coast rocks with spray and mist",1],["world","0.5","Caribbean midday sky, deep blue water to the horizon",1],
-  ["world","0b","Cuba at 1:150 with smooth beaches and open harbours",0],["world","0b","World board: 17 regions on one ocean, wraps east to west",0],["world","0b","Real sun position by latitude, season and time",0],
-  ["world","0c","Jungle, forest, palms and mangroves from real land cover",0],["world","0c","Karst rocks, sea cliffs and the Viñales mogotes",0],
-  ["world","7","Weather fronts, forecasts and night",0],["world","7","Hurricanes and typhoons",0],
-  ["world","7b","Sea ice, icebergs and growlers",0],["world","7b","Polar night, midnight sun and aurora",0],
-  ["world","9","Seasons: 8 weeks = one in-game year, opposite north and south",0],
-  ["world","10","Regions: British Isles, Mediterranean, US East Coast & Panama, Arabia, Malacca, Japan, Bering, Cape Horn & Antarctica, Greenland, West Africa, the Cape, the Reef",0],
-  ["body","0","Walk, sprint, wade and swim on moving waves",1],["body","0","Footprints, splashes and wakes",1],
-  ["body","2","Board boats, fall overboard, climb back on",0],
-  ["body","4","Needs: food, water, stamina",0],["body","4","Injuries: bleeding, fractures, infection, medicine",0],["body","4","Heat stroke and dehydration in the tropics",0],["body","4","Light seasickness for new sailors",0],
-  ["body","7b","Body heat, hypothermia and frostbite",0],["body","7b","Survival suits: safe in ice water, bad for fighting",0],
-  ["craft","4","Hand crafting: raft, bandages, splints, rain catcher",0],["craft","4","Workbench and workshop crafting on your plot",0],
-  ["craft","4","Gunsmith bench: tier 1–2 guns from parts, ammo reloading",0],["craft","4","Weapon parts and quality grades: standard, fine, master",0],["craft","4","Wooden and aluminium boats: raft, rowboat, skiff, panga",0],
-  ["craft","5","Armory: military weapons, explosives, body armour",0],["craft","5","Fibreglass boatyard: workboats, go-fasts, sport-fishers",0],["craft","5","Crafted engines: outboards, diesels, waterjets, tuning",0],
-  ["craft","6","Ordnance works: heavy machine guns, autocannons, mortars, mines",0],["craft","6","Steel hulls with a modular fit-out and real weight and stability",0],
-  ["craft","7","Naval guns, torpedoes and fire control (Isle prototypes)",0],["craft","4","Fishing: lines, traps, pots, nets",0],["craft","4","Cooking on a stove; hot food matters in the cold",0],["craft","4","The cold chain: fish spoils without ice",0],
-  ["craft","5","Production chains: cane to rum, leaf to cigars, beans to coffee",0],["craft","5","Ice houses, smokehouses, sawmills, distilleries",0],
-  ["craft","6","Shipyard hulls from bulk materials, plus fitted modules",0],["craft","6","Isle blueprints unlock the top recipes",0],
-  ["land","4","Deeds and plots: cays, coastal lots, town lots, farm plots",0],["land","4","Snap-together building kit",0],["land","4","Materials delivered by boat or truck",0],["land","4","Everything saved, even while you're offline",0],
-  ["land","5","Land tax and auctions for unpaid plots",0],["land","5","Plot assaults: take a plot by force in its owner's war window",0],["land","5","Defences: walls, land office, watchtowers, gun posts, sea mines, hired guards",0],["land","5","Offline protection: 3-hour war window, strongroom, safe bank, peace shields",0],["land","5","Land insurance",0],
-  ["land","7","Building wind ratings, hurricane straps, storm shutters",0],["land","7b","Heated buildings and ice-edge outposts",0],["land","10","Oil rigs on sea plots (companies)",0],
-  ["power","1","Fuel burn by speed and sea state",0],
-  ["power","2","Ship power: batteries, alternator, bilge pumps",0],
-  ["power","4","Plot power: solar, generator, battery bank, snap-to-grid wiring",0],["power","4","Shore power in ports",0],["power","4","Fresh water: desalinators, rain tanks, wells",0],
-  ["power","5","Refineries and the fuel chain",0],["power","5","Fuel tanks that leak, burn and get stolen; spills",0],
-  ["power","7","Wind turbines (brake in storms or break)",0],["power","7b","Cold-weakened batteries and heating loads",0],["power","10","Small hydro in the fjords",0],
-  ["isle","3","The Isle: ruined town, round prison, marble quarry, wreck lagoon",0],["isle","3","Warden AI: patrols, snipers, mortar team, gunboats",0],["isle","3","Loot zones, keycards and a stash",0],["isle","3","4 ways out: your boat, ferry flare, old pier, swim to a buoy",0],["isle","3","40-minute raid timer and the sweep",0],["isle","3","Gear-matched raids, groups of 4, no respawns",0],
-  ["isle","6","Diving for treasure in the wreck lagoon",0],["isle","9","Isle seasons: new areas, loot and Warden tactics",0],
-  ["boats","1","Skiff and go-fast on real waves: planing, slamming",0],["boats","1","Get in and out, walk on a moving deck",0],
-  ["boats","2","Damage, flooding and sinking",0],
-  ["boats","4","Raft, dinghy, jet ski, workboat",0],
-  ["boats","6","Coaster, tug and barge, patrol boat, corvette",0],["boats","6","Shipyards, modules and dry docks",0],["boats","6","Hired crew at empty stations",0],["boats","6","Wreck and raise: salvage big ships within 48 h",0],["boats","6","Wear and maintenance: engines, corrosion, hull fouling",0],
-  ["boats","7","Frigate (warship)",0],["boats","7b","Ice-class hulls, ice-class trawler and icebreaker",0],["boats","7b","Ships ice up and can roll over",0],["boats","10","Freighters and tankers for the ocean runs",0],
-  ["combat","2","Small arms on foot and from a rolling deck",0],
-  ["combat","3","Third-person shooting on the Isle, armour, grenades",0],["combat","3","Crocodiles in the Isle's southern swamp",0],
-  ["combat","6","Heavy machine guns, autocannons, deck guns, torpedoes",0],["combat","6","Boarding and prize capture",0],["combat","6","AI pirate gangs in lawless waters",0],
-  ["combat","7","127 mm main guns; port sieges 10 v 10 and 20 v 20",0],["combat","7b","Polar bears on Svalbard and Greenland shores",0],
-  ["nav","6","Compass and paper charts that fill in as you sail",0],["nav","6","GPS, radar, depth sounder and sonar",0],["nav","6","AIS (switch it off to smuggle) and VHF radio",0],["nav","6","Distress calls and rescue contracts",0],
-  ["nav","7","Weather forecasts by radio",0],["nav","7b","Distress beacons and self-inflating life rafts",0],
-  ["eco","4","Havana freeport and starter jobs: fishing, hauling",0],
-  ["eco","5","Port markets with order books and price history",0],["eco","5","Contracts with escrow: hauls, escorts, tows, rescues",0],["eco","5","Banks and loans secured on deeds or ships",0],["eco","5","Insurance priced on risk",0],["eco","5","Taxes, fees and the regional balance sim",0],
-  ["eco","6","Salvage and wrecks after storms",0],["eco","7b","Icebreaker convoys and iceberg towing",0],
-  ["eco","9","World trade routes: Rum Run, Arctic Route",0],["eco","10","Oil Run, Spice Route, Tech Run, Cape and Horn routes",0],
-  ["co","5","Companies (up to 50) and alliances (up to 3)",0],["co","5","Territories with control points: tax, resources, production permits",0],["co","5","Territory war: declare, build a beachhead, fight 20 v 20 or 40 v 40",0],["co","5","War bonds and 7-day peace shields",0],["co","5","Player ports: taxes, docking rules, contraband lists",0],["co","5","PvP zones, outlaws and bounties",0],
-  ["co","7","Weekly port siege windows",0],["co","10","Politics at the chokepoints: Gibraltar, Hormuz, Malacca, the canals",0],
-  ["net","2","Dedicated server, 16 players",0],
-  ["net","8","Region servers for 100–150 players",0],["net","8","Open-ocean server and the hand-over at sea",0],["net","8","Anti-cheat and DDoS-protected hosting",0],
-  ["net","9","Early Access: the Caribbean and the North",0],["net","9","Optional fresh-start shards",0],
-  ["prog","3","Isle rank per season",0],
-  ["prog","5","Skills by doing (small bonuses, at most 15 %)",0],["prog","5","Company tiers and port reputation",0],
-  ["prog","6","Licences: Skipper, Master, Captain, Commodore",0],["prog","7b","Ice endorsement for polar waters",0],
-  ["prog","8","Your first hours: a guided start on a Havana pier",0],["prog","9","Explorer log: titles, flags, figureheads, paint",0],
+  ["world","Real coasts and sea floors from real-world elevation, depth and land-cover data"],["world","Real ocean waves that every swimmer and every ship floats on"],
+  ["world","Surf that steepens, breaks and runs up the sand"],["world","Calm seas, trade-wind seas and storm seas"],["world","Sand, coast rocks, spray and mist"],
+  ["world","A mini Earth: 17 regions on one ocean that wraps east to west"],["world","The sun where it really stands, by latitude, season and hour"],
+  ["world","Jungle, forest, palms, pine woods and mangroves where they really grow"],["world","Karst rocks, sea cliffs and the Viñales mogotes"],
+  ["world","The wind field: trade winds, westerlies, calms and squalls"],["world","Weather fronts, weather signs and night"],["world","Hurricanes and typhoons"],
+  ["world","Sea ice, icebergs and growlers"],["world","Polar night, midnight sun and aurora"],["world","Seasons: 8 weeks = one in-game year, opposite north and south"],
+  ["world","New regions: the British Isles, the Mediterranean, the American east coast and the isthmus, Arabia, Malacca, Japan, the Bering Sea, Cape Horn and Antarctica, Greenland, West Africa, the Cape, the Reef"],
+  ["body","Walk, sprint, wade and swim on moving waves"],["body","Footprints, splashes and wakes"],["body","Walk a moving deck and climb the rigging"],
+  ["body","First person at every station and in every fight"],["body","Climb aboard, fall overboard, swim back"],
+  ["body","Needs: food, water, stamina"],["body","Injuries: bleeding, splinters, fractures, burns, infection"],["body","Fevers, heat stroke and thirst in the tropics"],
+  ["body","Light seasickness for new sailors"],["body","Scurvy on long voyages without fresh food"],
+  ["body","Body heat, hypothermia and frostbite"],["body","Wool, furs and sealskin: warm on deck, useless in the water"],
+  ["timber","A hull's woods set its weight, strength and splinters"],["timber","Felling, hauling by ox and mule, floating log rafts"],
+  ["timber","Sawpits and seasoning sheds: green, seasoned, well seasoned"],["timber","Quality grades: common, fine, prime"],
+  ["timber","Regional woods: mahogany, cedar, sabicu, lignum vitae, Caribbean and Scots pine, spruce, oak"],["timber","Forest plots you plant and thin over seasons"],
+  ["timber","Old-growth stands and felling rights in territories"],["timber","The Crown's marked mast trees: a licence, or contraband"],
+  ["timber","Wood sets speed, mast safety, shot resistance, lifespan and repair cost"],["timber","Rot and shipworm; sheathing and careening"],
+  ["timber","Driftwood in the ice; hardwood ice sheathing"],["timber","New woods with every region: oak and elm, live oak and white pine, cypress, teak, hinoki, Sitka spruce"],
+  ["craft","Hand crafting: raft, dugout canoe, bandages, splints, fire"],["craft","Carpenter's bench and smithy on your plot"],["craft","Gunsmith: weapons from parts, powder and shot"],
+  ["craft","Weapon parts and quality grades: standard, fine, master"],["craft","Wooden boats: raft, canoe, rowing boat, shallop"],
+  ["craft","Fishing: lines, traps, pots, nets"],["craft","Cooking on a fire or a galley stove"],["craft","Preservation: salt, smoke and drying racks; fish spoils in the heat"],["craft","Coopers: casks and barrels"],
+  ["craft","Armory: flintlocks, blunderbusses, grenadoes, breastplates"],["craft","Ropewalk, sail loft, tar and charcoal kilns"],["craft","Production chains: cane to rum, leaf to cigars, pine to tar"],
+  ["craft","Sawmills, powder mills, distilleries, salt pans"],["craft","Gun foundry: swivels, light guns and great guns, in iron and bronze"],
+  ["craft","Shipyard hulls frame by frame, rigged and fitted, with real weight and stability"],["craft","Isle plans that are used up and can be traded"],
+  ["land","Deeds and plots: cays, coastal lots, town lots, farm and forest plots"],["land","Snap-together kit in timber and stone"],["land","Materials delivered by boat, cart or mule train"],
+  ["land","Everything saved, even while you're offline"],["land","Land tax and auctions for unpaid plots"],["land","Plot assaults: take a plot by force in its owner's war window"],
+  ["land","Defences: palisades, walls, land office, watchtowers, guns, booms, hired guards"],["land","Offline protection: 3-hour war window, strongroom, safe bank, peace shields"],
+  ["land","War bonds paid to the old owner"],["land","Building wind ratings, stone and storm shutters"],["land","Whaling stations and heated huts on the ice edge"],
+  ["isle","The Isle: ruined town, old fortress, marble quarry, pine woods, wreck lagoon"],["isle","The Wardens: patrols, marksmen, a mortar battery, armed boats"],
+  ["isle","Loot zones, iron keys and a stash"],["isle","Four ways out: your boat, the smugglers' signal, the old pier, swim to a buoy"],["isle","40-minute raid timer and the sweep"],
+  ["isle","Gear-matched raids, groups of 4, no respawns"],["isle","Diving for treasure in the wreck lagoon, with a diving bell"],["isle","Isle seasons: new areas, loot and Warden tactics"],
+  ["boats","A rowing boat and a sloop on real waves and real wind"],["boats","Shot holes, flooding and sinking"],["boats","Raft, dugout canoe, rowing boat, shallop"],
+  ["boats","The sloop: the pirates' favourite"],["boats","Brigantine, fluyt and galleon"],["boats","Shipyards, slipways and careening beaches"],["boats","Hired hands at empty stations"],
+  ["boats","Wreck and raise: salvage big ships within 48 hours"],["boats","Fire, the powder magazine and damage control"],["boats","Frigate and man-of-war"],
+  ["boats","Ice strengthening, the whaler and ice pilots"],["boats","Ships ice up and can roll over"],["boats","Galleys in the Mediterranean"],
+  ["sail","Sails with real lift and drag: trim, heel, tacking and reefing"],["sail","Oars for boats; sweeps in a calm"],
+  ["sail","Every station by hand, in first person: helm, sails, gun drill, powder, carpenter, pumps, fire party"],["sail","Water in the hold: bail and pump, or she lists and sinks"],
+  ["sail","Orders by voice, the ship's bell and the drum"],["sail","Work power: muscle, ox teams, windmills and watermills"],["sail","Fresh water: rain, wells and casks"],
+  ["sail","Light and heat: candles, whale oil, firewood, charcoal, coal"],["sail","Provisions that spoil; the voyage planner shows days of water"],
+  ["sail","Hired hands, wages, morale and articles"],["sail","Sails and rigging that tear, chafe and rot"],
+  ["combat","Muskets, pistols, swords and swivel guns"],["combat","Grapples, boarding nets and fights across the decks"],["combat","Grenadoes and breastplates"],
+  ["combat","Crocodiles in the Isle's southern swamp"],["combat","Light guns: round, chain, bar and grape shot"],["combat","Prize capture at the prize court"],
+  ["combat","Pirate crews in lawless waters"],["combat","Great guns, broadsides and raking; forts, mortars and fire ships"],["combat","Port sieges, 20 v 20 and 30 v 30"],
+  ["combat","Polar bears on Svalbard and Greenland shores"],
+  ["nav","Compass, lead line, log line and backstaff"],["nav","Dead reckoning: a circle of doubt, with no longitude"],["nav","Charts and rutters you fill in and trade"],
+  ["nav","Signals: flags, lanterns, guns; news travels with ships"],["nav","Weather signs and the weather glass"],["nav","Rescue with boats, signal guns and fires"],
+  ["eco","Havana freeport and starter jobs: fishing, hauling, timber"],["eco","Port markets with order books and price history"],
+  ["eco","Contracts with escrow: hauls, escorts, tows, rescues, timber orders"],["eco","Counting houses, loans and bottomry"],["eco","Insurance priced on risk and on your hull's woods"],
+  ["eco","Taxes, fees and the Crown's stamp duty"],["eco","Smuggling: untaxed rum, tobacco and forbidden goods"],["eco","Dirty coin and laundering through player businesses"],
+  ["eco","Notoriety, warrants and a price on your head"],["eco","Hidden holds, false colours and forged papers"],["eco","Salvage and wrecks after storms"],
+  ["eco","The treasure fleet: escort it or raid it"],["eco","Whaling and sealing: oil, baleen, ivory; ice pilot contracts"],
+  ["eco","World trade routes: the Timber Run, the Rum Run, the Mast Run, the Spice Run, the Silver Run, round the Cape and the Horn"],
+  ["co","Companies (up to 50) and alliances (up to 3), with articles"],["co","Player ports: taxes, docking rules, contraband lists, havens"],["co","PvP zones, outlaws and bounties"],
+  ["co","War bonds and 7-day peace shields"],["co","The Crown's own squadron, always on patrol"],["co","The Crown: a player-run navy and customs in every region"],
+  ["co","Stop and rummage, seizures, impounds, arrests and jail"],["co","Revenue cutters and the watchtower network"],["co","Crown elections each season; the smuggling war story"],
+  ["co","Territories with control points: tax, timber rights, permits"],["co","Territory war: declare, build a beachhead, fight 20 v 20 or 30 v 30"],["co","Weekly port siege windows"],
+  ["co","Politics at the chokepoints: Gibraltar, Hormuz, Malacca, the isthmus"],
+  ["net","Dedicated servers"],["net","Big shared region servers"],["net","Ships handed over between servers at sea"],["net","Anti-cheat and protected hosting"],
+  ["net","Optional fresh-start worlds"],["net","In-game voice: ship, company and proximity, with mute and report"],["net","Built to run on ordinary gaming PCs"],
+  ["prog","Isle rank each season"],["prog","Skills by doing (small bonuses, at most 15 %)"],["prog","Company tiers and port reputation"],
+  ["prog","Licences: Skipper, Master, Captain, Commodore"],["prog","Crown ranks: officer to Governor"],["prog","Ice endorsement for polar waters"],
+  ["prog","Your first hours: a guided start on a Havana quay"],["prog","Explorer log: titles, flags, figureheads, sail colours"],
 ];
 const NEEDS = [
   ["Food and water", "Eat and drink about once an hour of play. The desert drains water faster."],
-  ["Health", "Bleeding, fractures and infection, each fixed with one action and the right item."],
-  ["Stamina", "Sprinting, swimming and hauling cargo by hand."],
-  ["Body heat", "Cold water kills in minutes up north; the tropics bring sun, heat and thirst."],
+  ["Health", "Wounds, splinters, fractures, fevers and scurvy, each fixed with one action and the right item."],
+  ["Stamina", "Sprinting, swimming, rowing, climbing the rigging and hauling by hand."],
+  ["Body heat", "Cold water kills in minutes up north. Wool and furs keep you warm on deck, not in the water."],
+  ["Crew and provisions", "Your hands eat, drink and draw wages. Run out of water at sea and they sicken."],
   ["No chores", "No sleep meter and no base upkeep while you're away. Systems run on the server."],
 ];
+// [wood, where, best for, kg/m3, strength, rot, worm, spring, work, splinters, value, region]
+const WOODS = [
+  ["Cuban mahogany", "Caribbean", "Frames, planking, cabins", 830, 7, 8, 5, 3, 7, 3, 9, "car"],
+  ["Spanish cedar", "Caribbean", "Light planking, boats, cabins", 470, 4, 8, 4, 4, 9, 3, 6, "car"],
+  ["Sabicu", "Caribbean", "Frames, beams, keels", 770, 8, 9, 5, 3, 4, 4, 7, "car"],
+  ["Lignum vitae", "Caribbean", "Sheaves, deadeyes, bearings. It sinks.", 1250, 10, 10, 8, 2, 1, 2, 10, "car"],
+  ["Caribbean pine", "Cuba's pine woods, the Isle", "Masts, spars, decks, pitch", 650, 6, 5, 2, 6, 7, 6, 4, "car"],
+  ["Scots pine", "Norway", "Masts, yards, decks, planking, tar", 550, 6, 5, 2, 8, 8, 6, 4, "nor"],
+  ["Norway spruce", "Norway", "Light spars, oars, boats, cheap planks", 430, 4, 3, 1, 7, 9, 5, 2, "nor"],
+  ["Oak", "Norway's south coast", "Keels, frames, planking, gun carriages", 700, 8, 7, 3, 4, 5, 9, 6, "nor"],
+  ["Birch", "Norway", "Small boats, treenails, tar, charcoal", 640, 5, 2, 1, 5, 7, 5, 2, "nor"],
+  ["Driftwood larch", "Svalbard and Greenland beaches", "Repairs in the ice; random grade", 650, 6, 6, 3, 6, 6, 6, 3, "ice"],
+];
+const WOODREG = { car: ["Caribbean", "var(--money)"], nor: ["The North", "var(--world)"], ice: ["The ice (driftwood)", "var(--online)"] };
+// [build, woods, speed, mast safety, strength, shot resistance, splinters, life north, life tropics, repair cost, timber cost]
+const BUILDS = [
+  ["Northern sloop", "Oak frames, Scots pine planks, deck and masts", 100, 100, 100, 100, 100, 7.0, 4.2, 100, 100],
+  ["Havana sloop", "Sabicu frames, mahogany planks, cedar deck, Caribbean pine masts", 93, 86, 107, 122, 50, 10.1, 6.0, 162, 151],
+  ["Cedar sloop", "Spanish cedar throughout, Caribbean pine masts", 104, 86, 57, 56, 50, 9.6, 5.8, 102, 122],
+  ["Timber Run sloop", "Havana hull, prime Scots pine masts", 96, 104, 107, 122, 50, 10.1, 6.0, 162, 161],
+  ["Cheap green sloop", "Norway spruce throughout, common grade, green", 103, 74, 49, 46, 83, 1.4, 0.9, 34, 26],
+  ["Live oak and teak (later regions)", "Live oak frames, teak planks and deck, prime Scots pine masts", 95, 104, 121, 126, 33, 12.1, 7.3, 214, 190],
+];
+const BUILDCOLS = [["Speed", 1], ["Mast safety", 1], ["Strength", 1], ["Shot resistance", 1], ["Splinters", -1], ["Life, north", 1], ["Life, tropics", 1], ["Repair cost", -1], ["Timber cost", -1]];
 const LADDER = [
-  { lvl: "Tier 1 · Hand", needs: "Anywhere · no power", items: ["Raft from barrels and planks", "Bandages and splints", "Rain catcher, campfire", "Handline and fish trap", "Hull patch"] },
-  { lvl: "Tier 2 · Workbench", needs: "On your plot · delivered lumber, cement, steel", items: ["Building kit parts", "Crab pots, longlines, nets", "Warm gear and suit repairs", "Engine service kits", "Breaching kits for raids"] },
-  { lvl: "Tier 3 · Workshop", needs: "Power on · tools wear", items: ["Metalwork and welding", "Outboard rebuilds", "Battery packs and wiring kits", "Small boat modules: pumps, tanks, mounts", "Electronics from imported parts"] },
-  { lvl: "Tier 4 · Production", needs: "Big plots and companies · power, fuel, workers", items: ["Ice house, smokehouse, cannery", "Sawmill", "Sugar mill and distillery: rum", "Tobacco barn: cigars; coffee roaster", "Refinery: diesel, gasoline, bunker fuel"] },
-  { lvl: "Tier 5 · Shipyard", needs: "Coastal plot or port · dry dock", items: ["Hulls from bulk materials", "Engines, holds, cranes, armour, radar", "Ice belts and ice-class refits", "Top modules need Isle parts", "Warships and icebreakers (companies)"] },
+  { lvl: "Station 1 · Hand", needs: "Anywhere · a knife and an axe", items: ["Raft from logs and lashings", "Dugout canoe from one log", "Bandages and splints", "Fire, shelter, rain catcher", "Hull patch: oakum and pitch"] },
+  { lvl: "Station 2 · Carpenter's bench", needs: "On your plot · delivered timber", items: ["Building kit: frames, planks, shingles", "Casks and barrels", "Oars, blocks, gun carriages", "Rowing boats", "Ladders and petard boards"] },
+  { lvl: "Station 3 · Smithy", needs: "A forge · charcoal or coal · tools wear", items: ["Nails, bolts, chain, anchors", "Tools and fittings", "Gun locks and barrels", "Swords and axes", "Repairs"] },
+  { lvl: "Station 4 · Production", needs: "Big plots and companies · mill power, fuel, workers", items: ["Sawmill and seasoning sheds", "Ropewalk and sail loft", "Tar and charcoal kilns", "Sugar mill, distillery, tobacco barn", "Powder mill and gun foundry"] },
+  { lvl: "Station 5 · Shipyard", needs: "Coastal plot or port · slipway, careening beach", items: ["Hulls frame by frame, plank by plank", "Masts, spars, rigging and sails", "Ice strengthening and sheathing", "The best builds need Isle plans and prime timber", "Warships (companies)"] },
 ];
 const RULES = [
-  ["Hauled, not conjured", "Every big build needs its materials delivered by boat or truck, so crafting creates trade and hauling work."],
-  ["Real inputs", "Recipes cost time, power and fuel, so a base with no power can't run its workshop."],
-  ["Blueprints from the Isle", "Prototype parts and blueprints from raids unlock the best ship modules."],
-  ["Everything wears", "Crafted engines, panels, suits and tools wear out and need service, which keeps money moving."],
+  ["Hauled, not conjured", "Every big build needs its materials delivered by boat, cart or mule train, so crafting creates trade and hauling work."],
+  ["Real inputs", "Recipes cost time, timber, labour and mill power. Without a mill, two sawyers at a pit do the work, slowly."],
+  ["Plans from the Isle", "Master shipwrights' and gunfounders' plans unlock the best ships and guns, and they are used up."],
+  ["Everything wears", "Rope, canvas, timber, tools and guns wear out, rot or rust, which keeps coin moving."],
 ];
 
 const FLOW_TERR = [
-  ["Declare", "Pick a territory's control point (a fort, lighthouse, radio mast or customs house) and pay a war bond. The holder gets 48 h notice."],
-  ["Build a beachhead", "Set up a camp inside the territory: ammo, medics, boats."],
-  ["Battle in the war window", "In the holder's 3-hour window, each side fields a fixed roster: 20 v 20, or 40 v 40 for big territories."],
-  ["Hold the control point", "Hold it for 15 minutes in total, by land and sea. Naval guns shell forts; mines and booms guard the water."],
-  ["Take over", "The territory flips: its tax, resources, production permits, defences and respawn are yours, with a 7-day peace shield."],
+  ["Declare", "Pick a territory's control point (a fort, lighthouse, watchtower or customs house), pay the fee and a war bond. The holder gets 48 h notice."],
+  ["Build a beachhead", "Set up a camp inside the territory: powder, shot, surgeons, boats."],
+  ["Battle in the war window", "In the holder's 3-hour window, each side fields a fixed roster: 20 v 20, or 30 v 30 for big territories."],
+  ["Hold the control point", "Hold it for 15 minutes in total, by land and sea. Great guns batter the forts; booms and chains guard the water."],
+  ["Take over", "The territory flips: its taxes, timber and fishing rights, production permits, defences and respawn are yours, with a 7-day peace shield."],
 ];
 const FLOW_PLOT = [
-  ["Declare", "Pay a war bond on the plot. The owner gets 24 h notice."],
-  ["Prepare", "Bring explosives, breaching kits, boats and fighters to a beachhead nearby."],
-  ["Break in", "In the owner's war window, get past walls, guns, mines and hired guards."],
-  ["Destroy the land office", "Blow the hardened deed post and hold the plot for 10 minutes with no defender inside."],
-  ["Own it", "The deed and every building are yours. The old owner keeps their bank and most of the strongroom."],
+  ["Declare", "Pay a fee and a war bond on the plot. The owner gets 24 h notice."],
+  ["Prepare", "Bring petards, powder kegs, ladders, boats and fighters to a beachhead nearby."],
+  ["Break in", "In the owner's war window, get past palisades, guns, booms and hired guards. Fire spreads through wooden buildings."],
+  ["Destroy the land office", "Blow the stone strongpoint that holds the deed, and hold the plot for 10 minutes with no defender inside."],
+  ["Own it", "The deed and every building are yours. Your war bond goes to the old owner, who keeps their bank and most of the strongroom."],
 ];
 const SHIELDS = [
   ["War window", "fighting only in the defender's 3 hours"], ["Notice", "24–48 h, shown to the defender"], ["Bank", "never raidable"],
-  ["Strongroom", "at most 30 % lootable"], ["Freeports", "never attackable"], ["New players", "14 days of safety"], ["Peace shield", "7 days after a takeover"],
+  ["Strongroom", "at most 30 % lootable"], ["Freeports", "never attackable"], ["New players", "14 days of safety"], ["Peace shield", "7 days after a takeover"], ["Every plot", "can be taken after that"],
 ];
 const TREES = [
   { id: "treeWeapons", name: "Weapons",
-    materials: ["Steel", "Aluminium", "Brass and copper", "Polymer", "Hardwood", "Powder and explosives", "Optics glass"],
-    parts: ["Barrels", "Receivers", "Bolts and carriers", "Trigger groups", "Stocks and grips", "Magazines and feeds", "Sights and optics", "Suppressors and brakes", "Heavy mounts"],
-    benches: ["Gunsmith bench (your plot)", "Armory (company)", "Ordnance works (company yard)"],
-    tiers: [["1 Makeshift", "Machete, speargun, flare gun, pipe shotgun", "known at start"], ["2 Civilian", "Revolver, pistol, pump shotgun, hunting and scoped rifles", "shops and contracts"], ["3 Military", "SMG, assault rifle, marksman rifle, light machine gun, grenades, body armour", "the Isle"], ["4 Heavy", "Heavy MG, grenade launcher, 20–30 mm autocannon, mortar, sea and limpet mines", "Isle stock, research"], ["5 Naval", "57–76 mm deck guns, 127 mm main guns, torpedoes, fire control", "Isle prototypes"]],
-    note: "Ammo is crafted and reloaded (FMJ, armour-piercing, tracer, incendiary; HE and AP shells). Quality grades standard, fine and master give at most 15 %. Salt wears guns; neglected guns jam. Military weapons are contraband in some ports." },
-  { id: "treeBoats", name: "Boats",
-    materials: ["Wood planks and frames", "Aluminium plate", "Fibreglass and resin", "Steel plate", "Composite (Isle)"],
-    parts: ["Hulls", "Engine blocks, pistons, injectors, turbos", "Gearboxes and propellers", "Fuel tanks", "Batteries and alternators", "Pumps and steering", "Radar, AIS, radio, sonar", "Holds and cranes", "Armour plate, gun mounts, ice belt"],
-    benches: ["Workbench and slipway", "Workshop (aluminium)", "Boatyard with moulds (fibreglass)", "Shipyard and dry dock (steel)"],
-    tiers: [["Wood", "Raft, rowboat, wooden skiff", "cheap, heavy, repairable anywhere"], ["Aluminium", "Skiff, panga, workboat", "light, tough in rocks"], ["Fibreglass", "Go-fast, sport-fisher", "fast, cracks on impact"], ["Steel", "Patrol boat, coaster, tug, corvette, freighter, tanker, icebreaker, frigate", "strong, takes armour and an ice belt"], ["Composite", "Top-end patrol boats and racers", "Isle parts"]],
-    note: "Build a hull, fit it out module by module, sea-trial it and register it. Every module has a weight and a place: a top-heavy or badly balanced boat lists or capsizes in a swell. Engines are tuned for power, fuel burn or wear." },
+    materials: ["Iron and steel", "Copper and tin (bronze)", "Brass", "Lead", "Timber: walnut, elm, oak", "Flint", "Powder", "Hemp"],
+    parts: ["Barrels", "Locks: match, wheel, flint", "Stocks", "Furniture (fittings)", "Bayonets, slings, rests", "Blades, guards, grips", "Cast guns", "Gun carriages", "Tackle"],
+    benches: ["Gunsmith (your plot, by a smithy)", "Armory (company)", "Gun foundry (company)"],
+    tiers: [["I Makeshift", "Knife, club, boarding axe, harpoon, pike", "known at start"], ["II Civilian", "Cutlass, rapier, matchlock musket, fowling piece, wheellock pistol", "shops and contracts"], ["III Military", "Flintlock musket and bayonet, carbine, blunderbuss, pistols, grenadoes, breastplate", "the Isle"], ["IV Light guns", "Swivel gun, musketoon, falconet and minion (1–4-pounders), petards, fire pots", "Isle stock, research"], ["V Great guns", "6- to 32-pounder long guns, culverins, mortars; bronze from Isle plans", "the foundry; Isle plans"]],
+    note: "Powder and shot are crafted: balls and cartridges; round, chain, bar and grape shot. Keep your powder dry: rain puts out matchlocks. Quality grades standard, fine and master give at most 15 %. Iron guns fired hot can burst. Arms for outlaws are forbidden goods." },
+  { id: "treeBoats", name: "Ships",
+    materials: ["Timber: frames, planks, masts", "Iron: bolts, anchors, chain", "Hemp rope", "Flax or cotton canvas", "Tar, pitch and oakum", "Wood or lead sheathing"],
+    parts: ["Keel and frames", "Planking", "Masts and spars", "Deck and fit-out", "Blocks and sheaves (lignum vitae)", "Rigging", "Sails", "Pumps and steering", "Gun ports and guns", "Ballast", "Ice sheathing"],
+    benches: ["Hand (raft, dugout)", "Carpenter's bench (rowing boats)", "Shipyard with a slipway", "Careening beach"],
+    tiers: [["Small boats", "Raft, dugout canoe, rowing boat, longboat", "hand and bench"], ["Shallop", "One mast, fore-and-aft; fishing and coasting", "bench and yard"], ["Sloop", "Fast, 6–10 guns: the pirates' favourite", "shipyard"], ["Brigantine, fluyt, whaler", "Raiders, bulk carriers, ships for the ice", "shipyard"], ["Frigate, galleon, man-of-war", "24–70 guns; ocean crossings, treasure, sieges", "company yards, Isle goods"]],
+    note: "Lay the keel, raise the frames, plank the hull, then rig and fit her out: every gun, mast and ton of ballast has a weight and a place, and a top-heavy ship capsizes in a squall. The woods you choose set her speed, strength, shot resistance and lifespan." },
+];
+
+const FLOW_SMUG = [
+  ["Get the goods", "Untaxed rum, tobacco, tea and brandy from lawless ports; forbidden goods like marked Crown masts and arms for outlaws."],
+  ["Hide it", "Hidden holds and false bulkheads, casks with false bottoms, goods sunk on a buoyed line, caches in caves."],
+  ["Run it", "Fast sloops at night without lights, false colours and forged papers, decoys and escorts, from cheap coasts to rich, taxed markets."],
+  ["Sell", "Black markets in lawless coves and haven ports. Flood a market and the price drops."],
+  ["Launder", "Contraband pays dirty coin. Clean it through taverns, inns and trading houses, and lose a fifth of it doing so."],
+];
+const FLOW_CROWN = [
+  ["Take a commission", "Players run each region's Crown (fictional names, like the Azure Crown): officers to Governor, top posts elected every season. Officers leave their company for the term."],
+  ["Patrol", "Revenue cutters and sloops-of-war, booms at the chokepoints, watchtowers and informers. A world-run squadron always patrols too."],
+  ["Stop and rummage", "Order a ship to heave to in Crown waters and search her, without becoming an outlaw. A clean search pays the trader."],
+  ["Raid", "With a warrant built from notoriety and evidence, raid boiling houses and stores inside their war windows."],
+  ["Get paid", "Duty pay plus 40 % of every fine. Seized contraband is destroyed, never sold."],
 ];
 
 function renderWar() {
   const fill = (id, steps) => { const ol = document.getElementById(id); for (const [b, t] of steps) ol.append(el("li", {}, el("div", {}, el("b", { text: b }), el("div", { text: t })))); };
-  fill("flowTerr", FLOW_TERR); fill("flowPlot", FLOW_PLOT);
+  fill("flowTerr", FLOW_TERR); fill("flowPlot", FLOW_PLOT); fill("flowSmug", FLOW_SMUG); fill("flowCrown", FLOW_CROWN);
   const sh = document.getElementById("shields");
   for (const [b, t] of SHIELDS) sh.append(el("span", { class: "shield" }, el("b", { text: b + ": " }), t));
+}
+
+function renderTimber() {
+  const key = document.getElementById("woodkey");
+  for (const [name, c] of Object.values(WOODREG)) key.append(el("span", { style: `--c:${c}` }, el("i"), name));
+  const box = document.getElementById("woods");
+  const stats = [["Strength", 4, 0], ["Rot", 5, 0], ["Worm", 6, 0], ["Spring", 7, 0], ["Work", 8, 0], ["Splinters", 9, 1]];
+  for (const w of WOODS) {
+    const bars = el("div", { class: "bars" });
+    for (const [label, i, bad] of stats) {
+      bars.append(el("div", { class: bad ? "bar bad" : "bar", role: "img", "aria-label": `${label} ${w[i]} of 10` },
+        el("span", { text: label }), el("i", { style: `--w:${w[i] * 10}%` }), el("b", { text: String(w[i]) })));
+    }
+    box.append(el("article", { class: "wood", style: `--c:${WOODREG[w[11]][1]}` },
+      el("div", { class: "where", text: w[1] }), el("h3", { text: w[0] }), el("p", { class: "best", text: w[2] }), bars,
+      el("div", { class: "meta" }, el("span", { text: `${w[3].toLocaleString("en")} kg/m³` }), el("span", { text: `value ${w[10]}/10` }))));
+  }
+  const t = document.getElementById("builds");
+  const head = el("tr", {}, el("th", { text: "Build" }), el("th", { text: "Woods" }));
+  BUILDCOLS.forEach(([c]) => head.append(el("th", { text: c })));
+  t.append(el("thead", {}, head));
+  const body = el("tbody");
+  const best = BUILDCOLS.map(([, dir], j) => { const v = BUILDS.map((b) => b[j + 2] * dir); return [Math.max(...v) * dir, Math.min(...v) * dir]; });
+  for (const b of BUILDS) {
+    const tr = el("tr", {}, el("td", { text: b[0] }), el("td", { text: b[1] }));
+    BUILDCOLS.forEach(([c], j) => {
+      const v = b[j + 2];
+      const cls = v === best[j][0] ? "hi" : v === best[j][1] ? "lo" : "";
+      tr.append(el("td", { class: cls, text: Number.isInteger(v) && j < 5 ? String(v) : (j >= 7 ? String(v) : v.toFixed(1)) }));
+    });
+    body.append(tr);
+  }
+  t.append(body);
 }
 
 function renderTrees() {
   for (const t of TREES) {
     const box = document.getElementById(t.id);
     const col = (cap, items) => { const c = el("div", { class: "tcol" }, el("div", { class: "cap", text: cap })); items.forEach((i) => c.append(el("div", { class: "chip", text: i }))); return c; };
-    const tierCol = el("div", { class: "tcol" }, el("div", { class: "cap", text: t.id === "treeWeapons" ? "Tiers" : "Hulls and ships" }));
+    const tierCol = el("div", { class: "tcol" }, el("div", { class: "cap", text: t.id === "treeWeapons" ? "Tiers" : "Ships" }));
     for (const [a, b, c] of t.tiers) tierCol.append(el("div", { class: "tier" }, el("b", { text: a }), el("span", { text: b }), el("small", { text: c })));
     box.append(el("h4", { text: t.name }), el("div", { class: "tcols" }, col("Materials", t.materials), col("Parts", t.parts), col(t.id === "treeWeapons" ? "Benches" : "Yards", t.benches), tierCol), el("p", { class: "tnote", text: t.note }));
   }
 }
 
-const statusOf = (code) => (STAGES.find((s) => s.code === code) || {}).st || "later";
-const LABEL = { done: "done", now: "building now", next: "up next", later: "later" };
 const famOn = Object.fromEntries(Object.keys(FAM).map((k) => [k, true]));
 const sysById = Object.fromEntries(SYS.map((s) => [s.id, s]));
 
@@ -435,10 +552,9 @@ function el(tag, attrs = {}, ...kids) {
 }
 
 function renderStats() {
-  const done = F.filter((f) => f[3]).length;
   const s = document.getElementById("stats");
   s.append(el("span", {}, el("b", { text: String(F.length) }), " features"), el("span", {}, el("b", { text: String(SYS.length) }), " systems"),
-    el("span", {}, el("b", { text: String(STAGES.length) }), " stages"), el("span", {}, el("b", { text: String(done) }), " in the game today"));
+    el("span", {}, el("b", { text: String(STAGES.length) }), " stages"), el("span", {}, el("b", { text: String(WOODS.length) }), " woods in the first regions"));
 }
 
 function renderLoops() {
@@ -463,8 +579,8 @@ function renderLoops() {
       g.append(box, t, t2);
     });
   };
-  ring("loopOut", 300, 155, [["Load", "fish, crates, ore"], ["Sail", "fuel vs speed"], ["Sell", "markets, contracts"], ["Spend", "land, boats, power"]], "var(--life)");
-  ring("loopIsle", 745, 155, [["Insert", "boat, ferry, swim"], ["Loot", "prison, lagoon"], ["Fight", "Wardens, crews"], ["Extract", "or lose it all"]], "var(--ships)");
+  ring("loopOut", 300, 155, [["Load", "timber, casks, fish"], ["Sail", "wind and route"], ["Sell", "markets, contracts"], ["Spend", "land, ships, crew"]], "var(--life)");
+  ring("loopIsle", 745, 155, [["Insert", "boat or swim"], ["Loot", "fortress, lagoon"], ["Fight", "Wardens, crews"], ["Extract", "or lose it all"]], "var(--ships)");
 }
 
 function renderNeeds() {
@@ -490,30 +606,23 @@ function renderLegend() {
 
 function renderRoute() {
   const route = document.getElementById("route");
-  for (const s of STAGES) {
-    const feats = F.filter((f) => f[1] === s.code);
+  STAGES.forEach((s, i) => {
     const pills = el("div", { class: "pills" });
-    for (const f of feats) {
-      const sys = sysById[f[0]];
-      pills.append(el("span", { class: "pill", "data-fam": sys.fam, style: `--c:${FAM[sys.fam].c}`, title: sys.name }, f[2], el("small", { text: sys.name })));
-    }
-    route.append(el("div", { class: `stage ${s.st}` },
-      el("div", { class: "rail" }, el("div", { class: "node", text: s.code })),
+    for (const c of s.chips) pills.append(el("span", { class: "pill", text: c }));
+    route.append(el("div", { class: "stage" },
+      el("div", { class: "rail" }, el("div", { class: "node", text: String(i + 1) })),
       el("div", { class: "body" },
-        el("div", { class: "top" }, el("h3", { text: s.name }), el("span", { class: `st ${s.st}`, text: LABEL[s.st] })),
-        el("p", { class: "play", text: "Play: " + s.play }),
+        el("div", { class: "top" }, el("h3", { text: s.name })),
+        el("p", { class: "play", text: s.play }),
         pills)));
-  }
+  });
 }
 
 function renderSystems() {
   const wrap = document.getElementById("systems");
   for (const s of SYS) {
     const ul = el("ul");
-    for (const f of F.filter((x) => x[0] === s.id)) {
-      const st = statusOf(f[1]);
-      ul.append(el("li", {}, el("span", { text: f[2] }), el("span", { class: `sbadge ${f[3] ? "done" : st === "now" ? "now" : ""}`, text: "Stage " + f[1] })));
-    }
+    for (const f of F.filter((x) => x[0] === s.id)) ul.append(el("li", { text: f[1] }));
     wrap.append(el("article", { class: "sys", "data-fam": s.fam, style: `--c:${FAM[s.fam].c}` }, el("h3", { text: s.name }), el("p", { text: s.what }), ul));
   }
 }
@@ -530,22 +639,10 @@ function renderCraft() {
 }
 
 function applyFilter() {
-  document.querySelectorAll(".pill").forEach((p) => p.classList.toggle("dim", !famOn[p.dataset.fam]));
   document.querySelectorAll(".sys").forEach((c) => c.classList.toggle("dim", !famOn[c.dataset.fam]));
 }
 
-function setView(v) {
-  const stage = v !== "system";
-  document.getElementById("tab-stage").setAttribute("aria-selected", String(stage));
-  document.getElementById("tab-system").setAttribute("aria-selected", String(!stage));
-  document.getElementById("view-stage").hidden = !stage;
-  document.getElementById("view-system").hidden = stage;
-  try { localStorage.setItem("wx-map-view", stage ? "stage" : "system"); } catch (e) {}
-}
-
-renderStats(); renderLoops(); renderNeeds(); renderWar(); renderLegend(); renderRoute(); renderSystems(); renderCraft(); renderTrees();
-document.getElementById("tab-stage").addEventListener("click", () => setView("stage"));
-document.getElementById("tab-system").addEventListener("click", () => setView("system"));
-try { if (localStorage.getItem("wx-map-view") === "system") setView("system"); } catch (e) {}
+renderStats(); renderLoops(); renderTimber(); renderNeeds(); renderWar(); renderLegend(); renderSystems(); renderRoute(); renderCraft(); renderTrees();
 </script>
-</body></html>
+</body>
+</html>
